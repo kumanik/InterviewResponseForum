@@ -1,0 +1,95 @@
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>View Response</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    {% if not user.is_authenticated %}
+    <a class="navbar-brand" href="accounts/login">Login</a>
+    <a class="navbar-brand" href="accounts/register">Signup</a>
+    {% else %}
+    <a class="navbar-brand" href="acounts/logout">Logout</a>
+    {% endif %}
+  </nav>
+  <main role="main">
+  
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h2 class="display-3" style="color:rgb(0, 89, 255)"> {{response.profile}} at {{response.company}} </h2>
+        <h6 class="text-muted"> Added by: {{response.name}} on {{response.timestamp}} </h6>
+        <p> Salary offered Rs.{{response.offer}} </p>
+        <p> Number of rounds {{response.rounds}} </p>
+        <h4 class="text-weight-bold" style="color:rgb(112, 112, 112)"> Questions asked:</h4>
+        <p> {{response.questions}} </p>
+        <h4 class="text-weight-bold" style="color:rgb(112, 112, 112)"> Author's take: </h4>
+        <p> {{response.review}} </p>
+      </div>
+    </div>
+  
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <p>View all</p>
+          <p><a class="btn btn-primary" href=" {% url 'all_responses' %} " role="button">View &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <p>Add yours</p>
+          <p><a class="btn btn-primary" href=" {% url 'new_response' %} " role="button">New &raquo;</a></p>
+        </div>
+      </div>
+  
+      <hr>
+      <div class="col-md-8 card mb-4  mt-3 ">
+        <div class="card-body">
+          <!-- comments -->
+          {% if comments.count > 0 %}
+          <h2>{{ comments.count }} comments</h2>
+          {% endif %}
+          {% for comment in comments %}
+          <div class="comments" style="padding: 10px;">
+            <p class="font-weight-bold">
+              {{ comment.username }}
+              <span class=" text-muted font-weight-normal">
+                {{ comment.created_on }}
+              </span>
+            </p>
+            {{ comment.body | linebreaks }}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <div class="col-md-8 card mb-4  mt-3 ">
+        <div class="card-body">
+          {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}">Login or Signup to comment</a>
+          {% endif %}
+          {% if new_comment %}
+          <div class="alert alert-success" role="alert">
+            Your comment has been recorded
+          </div>
+          {% else %}
+          <h3>Leave a comment</h3>
+          <form method="post" style="margin-top: 1.3em;">
+            {{ comment_form.as_p }}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-light border" type="button" name="button">Submit</button>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+  
+  </main>
+</body>
+</html>
+{% endblock %}

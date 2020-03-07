@@ -13,5 +13,4 @@ urlpatterns = [
     path('allResponses/<int:repsonse_id>/update', views.update_resposne, name='update_response'),
 
     path('allResponses/<int:response_id>/delete', views.delete_response, name='delete_response'),
-    
 ]

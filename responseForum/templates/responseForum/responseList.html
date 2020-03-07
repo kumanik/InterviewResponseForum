@@ -25,7 +25,7 @@
       <h2 class="font-weight-bold"> {{ response.company }} </h2>
       <h3 class = "text-muted">Added by : {{ response.name }} </h3>  
       <a class="btn btn-lg btn-primary" href="{% url 'view_response' response.id %}" role="button">View response &raquo;</a>
-      <div class="col-lg-2 col-sm-12" style="float:left;">
+      <div class="col-lg-2 col-sm-12" style="float:right;">
         <div class="row align-middle justify-content-center d-flex p-2">
           {% if response.name.pk == user.pk %}
           <div class="col">

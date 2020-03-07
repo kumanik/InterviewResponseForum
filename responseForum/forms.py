@@ -5,7 +5,7 @@ from .models import *
 class ResponseForm(ModelForm):
     class Meta:
         model = InterviewResponse
-        fields = ('company','profile','rounds','questions','offer','rating')
+        fields = ('company','profile','rounds','questions','review','offer','rating')
         widgets = {
             'questions': Textarea(attrs={'rows': 5}),
         }

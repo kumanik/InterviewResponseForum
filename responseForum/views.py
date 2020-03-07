@@ -22,7 +22,22 @@ def allResponses(request):
 
 def viewResponse(request, response_id):
     response = get_object_or_404(InterviewResponse, id=response_id)
-    return render(request, 'responseForum/response.html', {'response': response})
+    comments = response.comments.filter(active=True)
+    comment_form = CommentForm()
+    new_comment = None
+    new_reply = None
+    if request.method == 'POST':
+       comment_form = CommentForm(data=request.POST)
+       if comment_form.is_valid():
+           if not (request.user.is_authenticated):
+               return render(request, 'Interviewbook/login.html')
+           new_comment = comment_form.save(commit=False)
+           new_comment.response = response
+           new_comment.username = request.user.username
+           new_comment.created_on = timezone.now()
+           new_comment.active = True
+           new_comment = comment_form.save()
+    return render(request, 'responseForum/response.html', {'response': response, 'comments': comments,'new_comment':new_comment, 'comment_form':comment_form})
 
 @login_required
 def new_response(request):
@@ -30,7 +45,8 @@ def new_response(request):
         form = ResponseForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('new_response')
+            response = get_object_or_404(InterviewResponse, id=form.id)
+            return render(request, 'responseForum/response.html', {'response': response})
         else:
             form = ResponseForm()
     return render(request, 'responseForum/responseForm.html', {'form': form})
@@ -50,22 +66,4 @@ def delete_response(request, response_id):
     if response.name.pk == request.user.pk:
         response.delete()
         return redirect('allResponses')
-
-@login_required
-def new_comment(request, response_id):
-    response = get_object_or_404(InterviewResponse, response_id)
-    comment_form = CommentForm()
-    new_comment = None
-    if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            if not (request.user.is_authenticated):
-                return render(request, 'registration/login.html')
-            new_comment = comment_form.save(commit=False)
-            new_comment.response = response
-            new_comment.username = request.user.username
-            new_comment.created_on = timezone.now()
-            new_comment.active = True
-            new_comment = comment_form.save()
-    return render(request, 'responseForum/response.html',{ 'response': response })
 

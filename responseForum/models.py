@@ -15,6 +15,7 @@ class InterviewResponse(models.Model):
     name = models.ForeignKey(User,on_delete=models.CASCADE)
     rounds = models.IntegerField(blank=True, null=True)
     questions = models.CharField(max_length=1000000)
+    review = models.CharField(max_length=1000000)
     offer = models.IntegerField(blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
     timestamp = models.DateTimeField(default=timezone.now)
@@ -27,9 +28,13 @@ class InterviewResponse(models.Model):
         self.likes += 1
         self.save()
 
+# class Questions(models.Model):
+#     response = models.ForeignKey(InterviewResponse, on_delete=models.CASCADE)
+#     question = models.CharField(max_length=200)
+
 class Comment(models.Model):
-    response = models.ForeignKey(InterviewResponse, on_delete=models.CASCADE)
-    body = models.TextField(null=True)
+    response = models.ForeignKey(InterviewResponse, on_delete=models.CASCADE, related_name='comments')
+    body = models.CharField(max_length=100)
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
