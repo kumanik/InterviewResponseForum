@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <title>View Response</title>
 </head>
@@ -14,12 +13,12 @@
     <a class="navbar-brand" href="accounts/login">Login</a>
     <a class="navbar-brand" href="accounts/register">Signup</a>
     {% else %}
-    <a class="navbar-brand" href="acounts/logout">Logout</a>
+    <a class="navbar-brand">Logged in as {{ user.get_username }}</a> <a class="navbar-brand" href="/accounts/logout/">Logout</a>
+
     {% endif %}
   </nav>
   <main role="main">
   
-    <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
         <h2 class="display-3" style="color:rgb(0, 89, 255)"> {{response.profile}} at {{response.company}} </h2>
@@ -34,39 +33,22 @@
     </div>
   
     <div class="container">
-      <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
-          <p>View all</p>
-          <p><a class="btn btn-primary" href=" {% url 'all_responses' %} " role="button">View &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <p>Add yours</p>
-          <p><a class="btn btn-primary" href=" {% url 'new_response' %} " role="button">New &raquo;</a></p>
+        <div class="col-md-4" style="display:inline-flexbox">
+          <p><a class="btn btn-secondary" href=" {% url 'all_responses' %} " role="button">View all &raquo;</a>
+          <a class="btn btn-secondary" href=" {% url 'new_response' %} " role="button">Add yours &raquo;</a></p>
         </div>
       </div>
   
       <hr>
-      <div class="col-md-8 card mb-4  mt-3 ">
-        <div class="card-body">
-          <!-- comments -->
-          {% if comments.count > 0 %}
-          <h2>{{ comments.count }} comments</h2>
-          {% endif %}
-          {% for comment in comments %}
-          <div class="comments" style="padding: 10px;">
-            <p class="font-weight-bold">
-              {{ comment.username }}
-              <span class=" text-muted font-weight-normal">
-                {{ comment.created_on }}
-              </span>
-            </p>
-            {{ comment.body | linebreaks }}
-          </div>
-          {% endfor %}
-        </div>
-      </div>
       
+      {% if comments.count > 0 %}
+              <h4>{{ comments.count }} comments</h4>
+      {% else %}
+              <h4>Be the first one to comment</h4>      
+        {% endif %}
+
+      <!-- sasta CommentForm -->
       <div class="col-md-8 card mb-4  mt-3 ">
         <div class="card-body">
           {% if not user.is_authenticated %}
@@ -84,6 +66,34 @@
             <button type="submit" class="btn btn-primary btn-light border" type="button" name="button">Submit</button>
           </form>
           {% endif %}
+
+
+              <!-- comments -->              
+              {% for comment in comments %}
+              <div class="jumbotron" style="padding: 10px;">
+                <p><span class="text-muted">Commment by
+                <span class="font-weight-bold">
+                  {{ comment.username }}
+                  <span class="font-weight-normal">
+                    added on {{ comment.created_on }}
+                  </span>
+                  </span>
+                </p>
+                {{ comment.body | linebreaks }}
+                <!-- edit and delete options   -->
+                <div class="col">
+                  <a href="{% url 'delete_comment' comment.id %}" style="vertical-align: middle;">
+                  <small class="text-muted">Delete</small><br><br><i class="fas fa-trash-alt fa-lg text-center"></i></a>
+                </div>
+                <div class="col">
+                  <a href="{% url 'update_comment' comment.id %}" style="vertical-align: middle;" >
+                  <small class="text-muted">Edit</small><br><br><i class="fas fa-edit fa-lg text-center"></i></a>
+                </div>
+              
+              </div>
+              {% endfor %}
+            </div>
+          </div>
         </div>
       </div>
 

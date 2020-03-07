@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <title>Interview Response Forum</title>
 </head>
@@ -14,13 +13,12 @@
     <a class="navbar-brand" href="accounts/login">Login</a>
     <a class="navbar-brand" href="accounts/register">Signup</a>
     {% else %}
-    <a class="navbar-brand" href="acounts/logout">Logout</a>
+    <<a class="navbar-brand">Logged in as {{ user.get_username }}</a> <a class="navbar-brand" href="/accounts/logout/">Logout</a>
     {% endif %}
   </nav>
   
   <main role="main">
   
-    <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
         <h1 class="display-3">Response Forum</h1>
@@ -29,7 +27,6 @@
     </div>
   
     <div class="container">
-      <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
           <p>View other people's experiences</p>

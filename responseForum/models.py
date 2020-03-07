@@ -22,7 +22,7 @@ class InterviewResponse(models.Model):
     likes=models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.company)
+        return str('{} at {}'.format(self.profile, self.company))
 
     def increase(self):
         self.likes += 1
@@ -37,10 +37,10 @@ class Comment(models.Model):
     body = models.CharField(max_length=100)
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['created_on']
 
     def __str__(self):
-        return "Comment {} by {}".format(self.body, self.user)
+        return "Comment {} by {}".format(self.body, self.username)

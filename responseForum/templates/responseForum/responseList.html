@@ -4,14 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <title>Response List</title>
 </head>
 <body>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     {% if user.is_authenticated %}
-    <a class="navbar-brand" href="/accounts/logout/">Logout</a>
+    <a class="navbar-brand">Logged in as {{ user.get_username }}</a> <a class="navbar-brand" href="/accounts/logout/">Logout</a>
     {% else %}
     <a class="navbar-brand" href="/accounts/login/">Login</a>
     <a class="navbar-brand" href="/accounts/signup/">Signup</a>
@@ -29,17 +28,16 @@
         <div class="row align-middle justify-content-center d-flex p-2">
           {% if response.name.pk == user.pk %}
           <div class="col">
-            <a href="{% url 'delete_response' response.id %}" style="vertical-align: middle;">
-            <small class="text-muted">Delete</small><br><br><i class="fas fa-trash-alt fa-lg text-center"></i></a>
+            <p  style="vertical-align: middle;">
+            <a href="{% url 'delete_response' response.id %}" class="text-muted">Delete</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'update_response' response.id %}" class="text-muted">Edit</a></p>  
           </div>
-          <div class="col">
-            <a href="{% url 'update_response' response.id %}" style="vertical-align: middle;" >
-            <small class="text-muted">Edit</small><br><br><i class="fas fa-edit fa-lg text-center"></i></a>
-          </div>
+
           {% endif %}
         </div>
       </div>
     </div>
+    <br><br>
   {% endfor %}
   <div class="container">    
     <nav aria-label="Page navigation list-group-item list-group-item-action">
