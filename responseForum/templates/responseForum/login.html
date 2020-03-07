@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Interview Response Forum</title>
+</head>
+
+
+{% block content %}
+
+<form class="form-signin" method="post" id="login-form">
+  {% csrf_token %}
+  <center>
+    {% if message %}
+    <div class="w-75 m-1 alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>{{message}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    <div class="card m-3 m-lg-5 p-3 p-lg-3 loginCard">
+      <center style="vertical-align:middle;">
+        <h3 class="form-signin-heading" style="color:#34495E;">Login</h3><hr>
+        <label for="id_username" class="sr-only">User Name</label>
+        <input type="text" name="username" id="id_username" class="form-control mb-2" placeholder="User Name" required autofocus>
+        <label for="id_password" class="sr-only">Password</label>
+        <input type="password" name="password" id="id_password" class="form-control mb-2" placeholder="Password" required>
+        <div class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        </div>
+        <button class="btn btn-sm btn-outline-primary btn-block" type="submit" style="width: 100px;">Login</button>
+      </center>
+      <hr>
+      <div class="d-flex justify-content-center"> 
+        <a class="m-2" href="{% url 'social:begin' 'github' %}"><i class="fab fa-2x fa-github"></i></a><br>
+        <a class="m-2" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fab fa-2x fa-google"></i></a><br>
+        <a class="m-2" href="{% url 'social:begin' 'facebook' %}"><i class="fab fa-2x fa-facebook-square"></i></a>
+      </div>
+      <span>Don't have an account?<a href="/signup"> Signup</a></span>
+    </div>
+  </center> 
+</form>
+{% endblock %}

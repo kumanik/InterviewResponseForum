@@ -1,0 +1,71 @@
+from django.http import HttpResponse, HttpResponseRedirect
+from .forms import *
+from django.shortcuts import redirect,render,get_object_or_404,reverse
+from django.urls import reverse
+from django.utils import timezone
+from .models import *
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.contrib.auth import login, authenticate,logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+def index(request):
+    return render(request, 'responseForum/home.html')
+
+def allResponses(request):
+    responses = InterviewResponse.objects.order_by('-timestamp')
+    paginator = Paginator(responses, 10)
+    page = request.GET.get('page')
+    responses = paginator.get_page(page)
+    return render(request, 'responseForum/responseList.html', {'responses': responses })
+
+def viewResponse(request, response_id):
+    response = get_object_or_404(InterviewResponse, id=response_id)
+    return render(request, 'responseForum/response.html', {'response': response})
+
+@login_required
+def new_response(request):
+    if request.method == "POST" :
+        form = ResponseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('new_response')
+        else:
+            form = ResponseForm()
+    return render(request, 'responseForum/responseForm.html', {'form': form})
+
+@login_required
+def update_resposne(request, response_id):
+    response = get_object_or_404(InterviewResponse, response_id)
+    form = ResponseForm(request.POST or None, instance=response)
+    if form.is_valid and response.name.pk == response.user.pk:
+        form.save()
+        return render(request, 'index')
+    return render(request, 'responseForum/responseList.html/', {'form': form})
+
+@login_required
+def delete_response(request, response_id):
+    response = get_object_or_404(InterviewResponse, response_id)
+    if response.name.pk == request.user.pk:
+        response.delete()
+        return redirect('allResponses')
+
+@login_required
+def new_comment(request, response_id):
+    response = get_object_or_404(InterviewResponse, response_id)
+    comment_form = CommentForm()
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            if not (request.user.is_authenticated):
+                return render(request, 'registration/login.html')
+            new_comment = comment_form.save(commit=False)
+            new_comment.response = response
+            new_comment.username = request.user.username
+            new_comment.created_on = timezone.now()
+            new_comment.active = True
+            new_comment = comment_form.save()
+    return render(request, 'responseForum/response.html',{ 'response': response })
+

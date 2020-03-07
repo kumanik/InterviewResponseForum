@@ -1,0 +1,75 @@
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Response List</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    {% if user.is_authenticated %}
+    <a class="navbar-brand" href="/accounts/logout/">Logout</a>
+    {% else %}
+    <a class="navbar-brand" href="/accounts/login/">Login</a>
+    <a class="navbar-brand" href="/accounts/signup/">Signup</a>
+    {% endif %}
+  </nav>
+
+  {% for response in responses%}
+  <main role="main" class="container">
+    <div class="jumbotron">
+      <h2>{{ response.profile }}</h2>
+      <h2 class="font-weight-bold"> {{ response.company }} </h2>
+      <h3 class = "text-muted">Added by : {{ response.name }} </h3>  
+      <a class="btn btn-lg btn-primary" href="{% url 'view_response' response.id %}" role="button">View response &raquo;</a>
+      <div class="col-lg-2 col-sm-12" style="float:left;">
+        <div class="row align-middle justify-content-center d-flex p-2">
+          {% if response.name.pk == user.pk %}
+          <div class="col">
+            <a href="{% url 'delete_response' response.id %}" style="vertical-align: middle;">
+            <small class="text-muted">Delete</small><br><br><i class="fas fa-trash-alt fa-lg text-center"></i></a>
+          </div>
+          <div class="col">
+            <a href="{% url 'update_response' response.id %}" style="vertical-align: middle;" >
+            <small class="text-muted">Edit</small><br><br><i class="fas fa-edit fa-lg text-center"></i></a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  <div class="container">    
+    <nav aria-label="Page navigation list-group-item list-group-item-action">
+    <ul class="pagination pagination-sm mt-5">
+      {% if contacts.has_previous %}
+      <li class="page-item">
+        <a class="page-link bg-light text-primary border-primary" href="?page={{ responses.previous_page_number }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      {% endif %}
+      <li class="page-item"><a class="page-link bg-light text-primary border-primary" href="?page={{ responses.number }}">1</a></li>
+  
+        {% if responses.has_next %}
+        <li class="page-item">
+        <a class="page-link bg-light text-primary border-primary" href="?page={{ responses.next_page_number }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+        </li>
+        <li class="page-item">
+        <a class="page-link bg-light text-primary border-primary" href="?page={{ responses.paginator.num_pages }}" aria-label="Last">
+          <span aria-hidden="true">Last</span>
+        </a>
+        </li>
+        {% endif %}
+        </ul>
+      </nav>
+    </div>
+</body>
+</html>
+{% endblock %}

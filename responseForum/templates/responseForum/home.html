@@ -1,0 +1,53 @@
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Interview Response Forum</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    {% if not user.is_authenicated %}
+    <a class="navbar-brand" href="accounts/login">Login</a>
+    <a class="navbar-brand" href="accounts/register">Signup</a>
+    {% else %}
+    <a class="navbar-brand" href="acounts/logout">Logout</a>
+    {% endif %}
+  </nav>
+  
+  <main role="main">
+  
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">Response Forum</h1>
+        <p>This is an app to share and view interview experiences</p>
+      </div>
+    </div>
+  
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <p>View other people's experiences</p>
+          <p><a class="btn btn-primary" href=" {% url 'all_responses' %} " role="button">View &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <p>Add your interview experience</p>
+          <p><a class="btn btn-primary" href=" {% url 'new_response' %} " role="button">New &raquo;</a></p>
+        </div>
+      </div>
+  
+      <hr>
+  
+    </div> <!-- /container -->
+  
+  </main>
+
+  
+</body>
+</html>
+{% endblock %}
