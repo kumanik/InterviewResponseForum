@@ -12,10 +12,26 @@ An app to share interview reviews
 2. Pip
 
 <h3>Installation</h3>
-<code>bash<br>mkdir project
-cd project<br>virtualenv .<br>source bin/activate<br><br>
-git clone https://github.com/kumanik5661/InterviewResponseForum.git<br><br>cd InterviewResponseForum<br>pip install -r requirements.txt<br><br>
-python manage.py makemigrations<br>python manage.py migrate<br><br>python manage.py runserver
+<code>
+mkdir project
+
+cd project
+
+virtualenv .
+
+source bin/activate
+
+git clone https://github.com/kumanik5661/InterviewResponseForum.git
+
+cd InterviewResponseForum
+
+pip install -r requirements.txt
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py runserver
 </code>
 <h2>Home Page screenshot</h2>
 <img src="static/images/home_page.png"</img>
