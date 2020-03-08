@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect 
 from django.contrib.auth import authenticate, get_user_model, login, logout
-from .forms import UserLoginForm, UserRegisterForm
+from .forms import UserLoginForm, UserRegisterForm 
 
 def login_view(request):
     next = request.GET.get('next')
@@ -14,7 +14,7 @@ def login_view(request):
             return redirect(next)
         return redirect('/')
     
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'registration/login.html', {'form': form})
 
 def register_view(request):
     next = request.GET.get('next')
@@ -34,4 +34,5 @@ def register_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect(request, 'logout.html')
+    return render(request, 'registration/logout.html')
+

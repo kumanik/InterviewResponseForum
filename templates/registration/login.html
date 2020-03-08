@@ -1,3 +1,4 @@
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
     <title>Login</title>
 </head>
 
-{% block content %}
+
 
   {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
@@ -21,22 +22,31 @@
       <p>Please login to see this page.</p>
     {% endif %}
   {% endif %}
-  
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
-  </form>
-  
+  <div align="center" >
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <table align="center">
+        <tr>
+          <td>{{ form.username.label_tag }}</td>
+          <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+          <td>{{ form.password.label_tag }}</td>
+          <td>{{ form.password }}</td>
+        </tr>
+      </table>
+      <br>
+      <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+      <input type="hidden" name="next" value="{{ next }}" />
+      <br>
+      <br>
+      <a>Don't have an account?</a>
+      <br>
+      <br>
+      <button class="btn btn-lg btn-primary" onclick="window.location.href='{% url "register"  %}'">Sign up</button>
+    </form>
+  </div>
 {% endblock %}
 </html>

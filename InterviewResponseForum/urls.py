@@ -14,5 +14,5 @@ urlpatterns = [
 
     path('accounts/register/', register_view, name='register'),
 
-    path('accounts/logout/', logout_view, name='logout'),
+    path('accounts/logout/', logout_view, {'template_name':'registration/logout.html'}, name='logout'),
 ]
