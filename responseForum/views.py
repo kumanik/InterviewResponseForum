@@ -55,10 +55,10 @@ def new_response(request):
 @login_required
 def update_resposne(request, response_id):
     instance = get_object_or_404(InterviewResponse, id=response_id)
-    form = ResponseForm(request.POST, instance=instance)
+    form = ResponseForm(request.POST or None, instance=instance)
     if request.method == "POST":
         if form.is_valid and instance.name.pk == request.user.pk:
-            form.save(user_id=request.user.pk)
+            form.save()
             return redirect('index')
     return render(request, 'responseForum/responseForm.html/', {'form': form})
 
@@ -70,7 +70,7 @@ def delete_response(request, response_id):
         return redirect('all_responses')
 
 @login_required
-def new_company(request):
+def add_company(request):
     form = CompanyForm()
     if request.method == "POST" :
         form = CompanyForm(request.POST)
@@ -90,4 +90,11 @@ def delete_comment(request, comment_id):
 
 @login_required
 def update_comment(request, comment_id):
-    return redirect('home')
+    instance = get_object_or_404(Comment, id=comment_id)
+    response = get_object_or_404(InterviewResponse, id=instance.response.id)
+    form = CommentForm(request.POST or None, instance=instance)
+    if request.method == "POST":
+        if form.is_valid and instance.username.pk == request.user.pk:
+            form.save()
+            return redirect('view_response', response_id=response.id)
+    return render(request, 'responseForum/commentForm.html/', {'form': form})

@@ -26,7 +26,7 @@
             <div class="row">
                 <div>
                   {{ form.company|as_crispy_field }}
-                  <button type="button" class="btn btn-secondary" href="   " >Add company</button>
+                  <a class="btn btn-secondary" href="{% url 'add_company' %}" role="button" >Add company</a>
                 </div>
                 <br>
                 <div>{{ form.profile|as_crispy_field }}</div>

@@ -13,7 +13,7 @@
     <a class="navbar-brand" href="accounts/login">Login</a>
     <a class="navbar-brand" href="accounts/register">Signup</a>
     {% else %}
-    <<a class="navbar-brand">Logged in as {{ user.get_username }}</a> <a class="navbar-brand" href="/accounts/logout/">Logout</a>
+    <a class="navbar-brand">Logged in as {{ user.get_username }}</a> <a class="navbar-brand" href="/accounts/logout/">Logout</a>
     {% endif %}
   </nav>
   

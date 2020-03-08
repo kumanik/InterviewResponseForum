@@ -20,19 +20,17 @@
   {% for response in responses%}
   <main role="main" class="container">
     <div class="jumbotron">
-      <h2>{{ response.profile }}</h2>
-      <h2 class="font-weight-bold"> {{ response.company }} </h2>
+      <h2>{{ response.profile }} at {{ response.company }}</h2>
+      
       <h3 class = "text-muted">Added by : {{ response.name }} </h3>  
       <a class="btn btn-lg btn-primary" href="{% url 'view_response' response.id %}" role="button">View response &raquo;</a>
-      <div class="col-lg-2 col-sm-12" style="float:right;">
+      <div class="col-lg-0 col-sm-2" style="float:right;">
         <div class="row align-middle justify-content-center d-flex p-2">
           {% if response.name.pk == user.pk %}
-          <div class="col">
-            <p  style="vertical-align: middle;">
-            <a href="{% url 'delete_response' response.id %}" class="text-muted">Delete</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="{% url 'update_response' response.id %}" class="text-muted">Edit</a></p>  
-          </div>
-
+            <p class="small" style="vertical-align: middle;">
+            <a href="{% url 'delete_response' response.id %}" class="text-muted">Delete</a>
+            <a href="{% url 'update_response' response.id %}" class="text-muted">Edit</a>
+          </p>
           {% endif %}
         </div>
       </div>

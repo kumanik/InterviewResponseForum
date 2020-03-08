@@ -29,6 +29,11 @@
         <p> {{response.questions}} </p>
         <h4 class="text-weight-bold" style="color:rgb(112, 112, 112)"> Author's take: </h4>
         <p> {{response.review}} </p>
+        {% if response.name.pk == user.pk %}
+            <p  style="vertical-align: middle;">
+            <a href="{% url 'delete_response' response.id %}" class="text-muted">Delete</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'update_response' response.id %}" class="text-muted">Edit</a></p>
+          {% endif %}
       </div>
     </div>
   
@@ -66,8 +71,8 @@
             <button type="submit" class="btn btn-primary btn-light border" type="button" name="button">Submit</button>
           </form>
           {% endif %}
-
-
+          
+          <br>
               <!-- comments -->              
               {% for comment in comments %}
               <div class="jumbotron" style="padding: 10px;">

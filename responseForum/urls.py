@@ -8,6 +8,8 @@ urlpatterns = [
 
     path('allResponses/response/<int:response_id>/', views.viewResponse, name='view_response'),
 
+    path('company/add', views.add_company, name='add_company'),
+
     path('response/new/', views.new_response, name='new_response'),
 
     path('allResponses/<int:response_id>/update', views.update_resposne, name='update_response'),
