@@ -44,8 +44,8 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4" style="display:inline-flexbox">
-          <p><a class="btn btn-secondary" href=" {% url 'all_responses' %} " role="button">View all &raquo;</a>
-          <a class="btn btn-secondary" href=" {% url 'new_response' %} " role="button">Add yours &raquo;</a></p>
+          <p><a class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" href=" {% url 'all_responses' %} " role="button">View all &raquo;</a>
+          <a class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" href=" {% url 'new_response' %} " role="button">Add yours &raquo;</a></p>
         </div>
       </div>
   
@@ -72,7 +72,7 @@
           <form method="post" style="margin-top: 1.3em;">
             {{ comment_form|crispy }}
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary btn-light border" type="button" name="button">Submit</button>
+            <button type="submit" class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" type="button" name="button">Submit</button>
           </form>
           {% endif %}
           

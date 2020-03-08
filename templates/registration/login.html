@@ -3,28 +3,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width", initial-scale=1>
-    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <title>Login</title>
 </head>
-
-
 
   {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
   
   {% if next %}
+    
     {% if user.is_authenticated %}
       <p>Your account doesn't have access to this page. To proceed,
       please login with an account that has access.</p>
     {% else %}
       <p>Please login to see this page.</p>
     {% endif %}
+
   {% endif %}
   <div align="center" >
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <h2>Login</h2>
+    <br>
     <form method="post" action="{% url 'login' %}">
       {% csrf_token %}
       <table align="center">
@@ -38,15 +39,15 @@
         </tr>
       </table>
       <br>
-      <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+      <button class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" type="submit">Sign in</button>
       <input type="hidden" name="next" value="{{ next }}" />
       <br>
       <br>
       <a>Don't have an account?</a>
       <br>
-      <br>
-      <button class="btn btn-lg btn-primary" onclick="window.location.href='{% url "register"  %}'">Sign up</button>
+      <button style="background-color: rgb(223, 240, 255);" class="btn btn-outline-primary" onclick="window.location.href='{% url "register"  %}'">Sign up</button>
     </form>
   </div>
-{% endblock %}
+
 </html>
+{% endblock %}

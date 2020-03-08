@@ -1,10 +1,39 @@
-{% block title %}Sign Up{% endblock %}
-
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Register</title>
+</head>
+<body> 
+  <br><br><br><br><br><br><br><br><br><br><br>
+  <div align="center">
+    <h2>Sign up</h2>
+    <form method="post">
+      {% csrf_token %}
+      <table align="justify">
+        <tr>
+          <td>{{ form.username.label_tag }}</td>
+          <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+          <td>{{ form.password.label_tag }}</td>
+          <td>{{ form.password }}</td>
+        </tr>
+        <tr>
+          <td><b>Retype Password:</b> </td>&nbsp;
+          <td>{{ form.password1 }}</td>
+        </tr>
+      </table>
+      <button class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" type="submit">Sign up</button>
+    </form>
+    <br>
+    <a>Forgot your way, want to login? </a><br>
+    <button style="background-color: rgb(223, 240, 255);" class="btn btn-outline-primary" onclick="window.location.href='{% url "login"  %}'">Sign in</button>
+  </div>
+  
+</body>
+
 {% endblock %}

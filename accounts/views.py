@@ -34,5 +34,7 @@ def register_view(request):
 
 def logout_view(request):
     logout(request)
-    return render(request, 'registration/logout.html')
+    return render(request, '/')
 
+def logged_out(request):
+    return render(request, 'registration/logged_out.html')
