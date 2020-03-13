@@ -3,6 +3,7 @@ from .forms import *
 from django.shortcuts import redirect,render,get_object_or_404,reverse
 from django.urls import reverse
 from django.utils import timezone
+import datetime 
 from .models import *
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth import login, authenticate,logout
@@ -22,6 +23,10 @@ def allResponses(request):
 
 def viewResponse(request, response_id):
     response = get_object_or_404(InterviewResponse, id=response_id)
+    if not responseView.objects.filter(response=response, session=request.session.session_key) :
+        view = responseView(response=response,ip=request.META['REMOTE_ADDR'], created=timezone.now(), session=request.session.session_key)
+        view.save()
+        response.increase()
     comments = response.comments.filter(active=True)
     comment_form = CommentForm()
     new_comment = None

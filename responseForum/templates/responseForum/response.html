@@ -33,6 +33,7 @@
         <p> {{response.questions}} </p>
         <h4 class="text-weight-bold" style="color:rgb(112, 112, 112)"> Author's take: </h4>
         <p> {{response.review}} </p>
+        <p> Views : {{response.hits}}</p>
         {% if response.name.pk == user.pk %}
             <p  style="vertical-align: middle;">
             <a href="{% url 'delete_response' response.id %}" class="text-muted">Delete</a>&nbsp;&nbsp;&nbsp;

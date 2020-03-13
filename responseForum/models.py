@@ -19,18 +19,20 @@ class InterviewResponse(models.Model):
     offer = models.IntegerField(blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
     timestamp = models.DateTimeField(default=timezone.now)
-    likes=models.IntegerField(default=0)
+    hits = models.IntegerField(default=0)
 
     def __str__(self):
         return str('{} at {}'.format(self.profile, self.company))
 
     def increase(self):
-        self.likes += 1
+        self.hits += 1
         self.save()
 
-# class Questions(models.Model):
-#     response = models.ForeignKey(InterviewResponse, on_delete=models.CASCADE)
-#     question = models.CharField(max_length=200)
+class responseView(models.Model):
+    response = models.ForeignKey(InterviewResponse, on_delete=models.CASCADE)
+    ip = models.CharField(max_length=200, null=True)
+    session = models.CharField(max_length=200, null=True)
+    created = models.DateTimeField(default=timezone.now)
 
 class Comment(models.Model):
     response = models.ForeignKey(InterviewResponse, on_delete=models.CASCADE, related_name='comments')
