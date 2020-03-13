@@ -84,14 +84,15 @@ def add_company(request):
             return redirect('new_response')
         else:
             form = CompanyForm()
-        return render(request, 'responseForum/CompanyForm.html', {'form': form})
+    return render(request, 'responseForum/CompanyForm.html', {'form': form})
 
 @login_required
 def delete_comment(request, comment_id):
     instance = get_object_or_404(Comment, id=comment_id)
+    response_id = instance.response_id
     if instance.username.pk == request.user.pk:
         instance.delete()
-        return redirect('all_responses')
+    return redirect('view_response', response_id)
 
 @login_required
 def update_comment(request, comment_id):

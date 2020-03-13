@@ -24,7 +24,7 @@
   
         <main role="main" class="container">
             {% load crispy_forms_tags %}
-          <div class="jumbotron">  
+          <div class="jumbotron" style="background-color: rgb(189, 206, 252);" >  
             <form method="post">
             {% csrf_token %}
                 {{ form|crispy }}

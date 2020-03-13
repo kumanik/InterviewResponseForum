@@ -9,7 +9,7 @@
     <title>View Response</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <nav  class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     {% if not user.is_authenticated %}
     <a class="navbar-brand" href=" {% url 'index'  %} ">Home</a>
     <a class="navbar-brand" href=" {% url 'login'  %}">Login</a>
@@ -23,7 +23,7 @@
   </nav>
   <main role="main">
   
-    <div class="jumbotron">
+    <div class="jumbotron" style="background-color: rgb(189, 206, 252);" >
       <div class="container">
         <h2 class="display-3" style="color:rgb(0, 89, 255)"> {{response.profile}} at {{response.company}} </h2>
         <h6 class="text-muted"> Added by: {{response.name}} on {{response.timestamp}} </h6>
@@ -80,7 +80,7 @@
           <br>
               <!-- comments -->              
               {% for comment in comments %}
-              <div class="jumbotron" style="padding: 10px;">
+              <div class="jumbotron" style="background-color: rgb(210, 220, 248);" style="padding: 10px;">
                 <p><span class="text-muted">Commment by
                 <span class="font-weight-bold">
                   {{ comment.username }}
@@ -91,6 +91,7 @@
                 </p>
                 {{ comment.body | linebreaks }}
                 <!-- edit and delete options   -->
+                {% if comment.username.pk == user.pk %}
                 <div class="col">
                   <a href="{% url 'delete_comment' comment.id %}" style="vertical-align: middle;">
                   <small class="text-muted">Delete</small><br><br><i class="fas fa-trash-alt fa-lg text-center"></i></a>
@@ -99,7 +100,7 @@
                   <a href="{% url 'update_comment' comment.id %}" style="vertical-align: middle;" >
                   <small class="text-muted">Edit</small><br><br><i class="fas fa-edit fa-lg text-center"></i></a>
                 </div>
-              
+              {% endif  %}
               </div>
               {% endfor %}
             </div>
