@@ -22,7 +22,7 @@ class UserLoginForm(forms.Form):
 class UserRegisterForm(forms.ModelForm):
     username = forms.CharField(max_length=20)
     password = forms.CharField(widget=forms.PasswordInput)
-    password1 = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput, label='Verify password')
 
     class Meta:
         model = User

@@ -14,7 +14,7 @@
     <form method="post">
       {% csrf_token %}
       <table align="justify">
-        <tr>
+        <tr>  
           <td>{{ form.username.label_tag }}</td>
           <td>{{ form.username }}</td>
         </tr>
@@ -23,14 +23,14 @@
           <td>{{ form.password }}</td>
         </tr>
         <tr>
-          <td><b>Retype Password:</b> </td>&nbsp;
+          <td>{{ form.password1.label_tag }}</td>&nbsp;
           <td>{{ form.password1 }}</td>
         </tr>
       </table>
       <button class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" type="submit">Sign up</button>
     </form>
     <br>
-    <a>Forgot your way, want to login? </a><br>
+    <p>Forgot your way, want to login? </p><br>
     <button style="background-color: rgb(223, 240, 255);" class="btn btn-outline-primary" onclick="window.location.href='{% url "login"  %}'">Sign in</button>
   </div>
   

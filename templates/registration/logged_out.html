@@ -10,10 +10,12 @@
 <body>
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   <div align="center">
-    <p>Logged out!</p>  
-    <a>Log in again ??</a><br><br>
-    <button style="background-color: rgb(223, 240, 255);" class="btn btn-outline-primary" onclick="window.location.href='{% url "login"  %}'">Sign in</button><br><br>
-    <button style="background-color: rgb(223, 240, 255);" class="btn btn-lg btn-outline-primary" onclick="window.location.href='{% url "index"  %}'">Home</button>
+    <h3>Logged out!</h3>  
+    <h4>Log in again ??</h4><br><br>
+    <div>
+      <button style="background-color: rgb(223, 240, 255);" class="btn btn-lg btn-outline-secondary" onclick="window.location.href='{% url "login"  %}'">Sign in</button>
+      <button style="background-color: rgb(223, 240, 255);" class="btn btn-lg btn-outline-primary" onclick="window.location.href='{% url "index"  %}'">Home</button>
+     </div>
   </div>
 </body>
 

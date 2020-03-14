@@ -3,7 +3,6 @@ from .forms import *
 from django.shortcuts import redirect,render,get_object_or_404,reverse
 from django.urls import reverse
 from django.utils import timezone
-import datetime 
 from .models import *
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth import login, authenticate,logout
@@ -50,8 +49,7 @@ def new_response(request):
     if request.method == "POST" :
         form = ResponseForm(request.POST)
         if form.is_valid():
-            form.save(user_id=request.user.pk)
-            response = get_object_or_404(InterviewResponse, id=form.id)
+            response = form.save(user_id=request.user.pk)
             return render(request, 'responseForum/response.html', {'response': response})
         else:
             form = ResponseForm()
@@ -63,8 +61,8 @@ def update_resposne(request, response_id):
     form = ResponseForm(request.POST or None, instance=instance)
     if request.method == "POST":
         if form.is_valid and instance.name.pk == request.user.pk:
-            form.save()
-            return redirect('index')
+            response = form.save(user_id=request.user.pk)
+            return redirect('view_response', response.id)
     return render(request, 'responseForum/responseForm.html/', {'form': form})
 
 @login_required
