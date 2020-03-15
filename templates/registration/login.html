@@ -8,22 +8,22 @@
     <title>Login</title>
 </head>
 
+
   {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+      <div class="alert alert-danger" style="text-align:center;width:100%" >Your username and password didn't match. Please try again.</div>
   {% endif %}
-  
-  {% if next %}
     
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
-    {% endif %}
+  {% if next %}  
+      {% if user.is_authenticated %}
+      <div class="btn btn-danger" style="text-align:center; width:100%" >Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</div>
+      {% else %}
+      <div class="btn btn-info" style="text-align:center; width:100%" >Please login to see this page.</div>
+  {% endif %}
 
   {% endif %}
-  <div align="center" >
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br>
+  <div align="center">
     <h2>Login</h2>
     <br>
     <form method="post" action="{% url 'login' %}">
@@ -43,9 +43,8 @@
       <input type="hidden" name="next" value="{{ next }}" />
       <br>
       <br>
-      <a>Don't have an account?</a>
-      <br>
-      <button style="background-color: rgb(223, 240, 255);" class="btn btn-outline-primary" onclick="window.location.href='{% url "register"  %}'">Sign up</button>
+      <p>Don't have an account?</p>
+      <a  style="color: rgb(65, 63, 63); background-color: rgb(223, 240, 255);" class="btn btn-outline-primary" href="{% url 'register'  %}">Sign up</a>
     </form>
   </div>
 

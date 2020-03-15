@@ -8,6 +8,9 @@
     <title>Register</title>
 </head>
 <body> 
+  {% if form.errors %}
+      <div class="alert alert-danger">You might have used a used username or your passwords didn't match. Please try again.</div>
+  {% endif %}
   <br><br><br><br><br><br><br><br><br><br><br>
   <div align="center">
     <h2>Sign up</h2>
@@ -27,11 +30,12 @@
           <td>{{ form.password1 }}</td>
         </tr>
       </table>
+      <br>
       <button class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" type="submit">Sign up</button>
     </form>
     <br>
-    <p>Forgot your way, want to login? </p><br>
-    <button style="background-color: rgb(223, 240, 255);" class="btn btn-outline-primary" onclick="window.location.href='{% url "login"  %}'">Sign in</button>
+    <p>Forgot your way, want to login? </p>
+    <button style="color: rgb(65, 63, 63); background-color: rgb(223, 240, 255);" class="btn btn-outline-primary" href="{% url 'login'  %}">Sign in</button>
   </div>
   
 </body>
