@@ -14,7 +14,7 @@ class InterviewResponse(models.Model):
     profile = models.CharField(max_length=200)
     name = models.ForeignKey(User,on_delete=models.CASCADE)
     rounds = models.IntegerField(blank=True, null=True)
-    questions = models.CharField(max_length=1000000)
+    questions = models.TextField(max_length=1000000)
     review = models.CharField(max_length=1000000)
     offer = models.IntegerField(blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)

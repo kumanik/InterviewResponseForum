@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from .forms import UserLoginForm, UserRegisterForm 
 
 def login_view(request):
+    if request.user.is_authenticated():
+        logout(request)
     next = request.GET.get('next')
     form = UserLoginForm(request.POST or None)
     if form.is_valid():

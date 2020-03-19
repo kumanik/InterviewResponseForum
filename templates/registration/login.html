@@ -39,6 +39,13 @@
         </tr>
       </table>
       <br>
+      <p><strong>-- OR --</strong></p>
+      <a class="btn btn-primary" style="background-color: #24292e;" href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+      <br>
+      <a class="btn btn-primary" style="background-color: #4267B2;" href="{% url 'social:begin' 'facebook' %}">Login with FaceBook</a><br>
+      <br>
+      <a class="btn btn-primary" style="background-color: #FBBC05;" href="/oauth/login/google-oauth2/">Login with Google</a><br>
+      <br>
       <button class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" type="submit">Sign in</button>
       <input type="hidden" name="next" value="{{ next }}" />
       <br>

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from accounts.views import *
 
@@ -17,4 +18,6 @@ urlpatterns = [
     path('accounts/logout/', logout_view,{ 'template_name': 'registration/logout.html',}, name='logout'),
 
     path('logged_out/', logged_out, name='logged_out'),
+
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]

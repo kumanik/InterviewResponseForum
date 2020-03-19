@@ -15,10 +15,15 @@ def index(request):
 
 def allResponses(request):
     responses = InterviewResponse.objects.order_by('-timestamp')
-    paginator = Paginator(responses, 10)
+    paginator = Paginator(responses, 5)
     page = request.GET.get('page')
-    responses = paginator.get_page(page)
-    return render(request, 'responseForum/responseList.html', {'responses': responses })
+    try:
+        responses = paginator.page(page)
+    except PageNotAnInteger :
+        responses = paginator.page(1)
+    except EmptyPage :
+        responses = paginator.PAGE(paginator.num_pages)
+    return render(request, 'responseForum/responseList.html', {'page':page,'responses': responses })
 
 def viewResponse(request, response_id):
     response = get_object_or_404(InterviewResponse, id=response_id)
@@ -29,7 +34,6 @@ def viewResponse(request, response_id):
     comments = response.comments.filter(active=True)
     comment_form = CommentForm()
     new_comment = None
-    new_reply = None
     if request.method == 'POST':
        comment_form = CommentForm(data=request.POST)
        if comment_form.is_valid():
