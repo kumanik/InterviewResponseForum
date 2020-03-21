@@ -1,60 +1,94 @@
-{% block content%}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+{% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>Response List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>IRF</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Andika">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Encode+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/Article-List.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Header-Blue.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Navigation-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Pretty-Footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    {% if not user.is_authenticated %}
-    <a class="navbar-brand" href=" {% url 'index'  %} ">Home</a>
-    <a class="navbar-brand" href=" {% url 'login'  %}">Login</a>
-    <a class="navbar-brand" href=" {% url 'register'  %}">Signup</a>
-    {% else %}
-    <a class="navbar-brand" href=" {% url 'index'  %} ">Home</a>
-    <a class="navbar-brand">Logged in as <strong>{{ user.get_username }}</strong> </a> 
-    <a class="navbar-brand" href=" {% url 'logout'  %} ">Logout</a>
-    <a class="navbar-brand" href=" {% url 'login'  %} ">Login as someone else</a>
-    {% endif %}
-  </nav>
 
-  {% for response in responses%}
-  <main role="main" class="container">
-    <div class="jumbotron" style="background-color: rgb(189, 206, 252);" >
-      <h2>{{ response.profile }} at {{ response.company }}</h2>
-      
-      <h3 class = "text-muted">Added by : {{ response.name }} </h3>  
-      <a class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);"" href="{% url 'view_response' response.id %}" role="button">View response &raquo;</a>
-      <div class="col-lg-0 col-sm-2" style="float:right;">
-        <div class="row align-middle justify-content-center d-flex p-2">
-          {% if response.name.pk == user.pk %}
-            <p class="small" style="vertical-align: middle;">
-            <a href="{% url 'delete_response' response.id %}" class="text-muted">Delete</a>
-            <a href="{% url 'update_response' response.id %}" class="text-muted">Edit</a>
-          </p>
-          {% endif %}
+<body>
+    <div class="header-blue" style="margin: 0px 0px 90px;">
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean">
+            <div class="container"><a class="navbar-brand" style="font-family: 'DM Sans', sans-serif;font-weight: 800;font-size: 25px;" href="">Interview Response Forum</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div
+                    class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'index' %}"><i class="fa fa-unlock-alt"></i>&nbsp; HOME</a></li>
+                        {% if not user.is_authenticated %}
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-unlock-alt"></i>&nbsp; &nbsp;LOGIN</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'register' %}"><i class="fa fa-sign-in"></i>&nbsp; SIGNUP</a></li>
+                        {% else %}
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>&nbsp; LOGOUT</a></li>
+                        {% endif %}
+                    </ul>
+            </div>
+    </div>
+    </nav>
+    <div class="container">
+        <div class="row" style="margin: 50px 15px 20px;">
+            <div class="col" style="margin: 60px 40px 16px;">
+                <p style="font-size: 25px;font-family: 'Encode Sans', sans-serif;margin: -21px -18px 10px;">All interview experiences are listed here</p>
+            </div>
         </div>
-      </div>
     </div>
-    <br><br>
-  {% endfor %}
-    <div style="font-family: monospace; align-content: center;">
-    {% if responses.has_other_pages %}
-      <nav aria-label="page navigation container">
-        <ul class="pagination justify-content-center">
-          {% if responses.has_previous %}
-            <li><a href="?page={{ responses.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
-            {% endif %}
-            {% if responses.has_next %}
-            <li><a href="?page={{ responses.next_page_number }}" class="page-link">NEXT &raquo;</a></li>
-          {% endif %}
-        </ul>
-      </nav>
-      {% endif %}
     </div>
+    <div class="container">
+        {% for response in responses %}
+        <div class="col-md-10 col-lg-8 rounded-lg" style="margin: 20px 30px 16px;background-color: #363939;height: 114px;">
+            <div class="post-preview">
+              <br>
+                <a href="{% url 'view_response' response.id %}" >
+                    <h3 class="post-title" style="margin: 0px 0px 10px; font-family: 'Encode Sans', sans-serif;color: #d6dbe0;">{{ response.profile }} at {{response.company}} </h3>
+                </a>
+                <p class="post-meta" style="font-family: Actor, sans-serif;font-size: 16px;color: #cae5f9;">Posted by {% if user.pk == response.name.pk %}you{%else%}{{response.name}}{% endif %} on {{response.timestamp}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <footer style="margin: 90px 0px 0px;">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 footer-navigation">
+                <h3></h3>
+                <p class="links" style="font-family: Cookie, cursive;font-size: 28px;font-weight: 500;margin: -25px -2px 5px;">InterviewResponseForum</p>
+                <p class="company-name">Interview Response Forum © 2020</p>
+            </div>
+            <div class="col-sm-6 col-md-4 footer-contacts">
+                <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
+                    <p><span class="new-line-span" style="font-family: Andika, sans-serif;">NIT Durgapur</span> Durgapur, India</p>
+                </div>
+                <div><i class="fa fa-phone footer-contacts-icon"></i>
+                    <p class="footer-center-info email text-left" style="font-size: 16px;width: 145px;">+91 9433828328&nbsp;&nbsp;</p>
+                </div>
+                <div><i class="fa fa-envelope footer-contacts-icon"></i>
+                    <p>nikhilkumar654231@gmail.com</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-4 footer-about">
+                <h4>About the company</h4>
+                <p> Built and designed single-handedly, this is one of my first projects</p>
+                <div class="social-links social-icons"><a href="https://github.com/kumanik5661/InterviewResponseForum"><i class="fa fa-github"></i></a></div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
-{% endblock %}

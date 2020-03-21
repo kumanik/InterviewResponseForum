@@ -1,52 +1,112 @@
-{% block content%}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  {% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>Interview Response Forum</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home  -  Interiew Response Forum</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Andika">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Encode+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/Article-List.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Header-Blue.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Navigation-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Pretty-Footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    {% if not user.is_authenticated %}
-    <a class="navbar-brand" href=" {% url 'login'  %}">Login</a>
-    <a class="navbar-brand" href=" {% url 'register'  %}">Signup</a>
-    {% else %}
-    <a class="navbar-brand">Logged in as <strong>{{ user.get_username }}</strong> </a> 
-    <a class="navbar-brand" href=" {% url 'logout'  %} ">Logout</a>
-    <a class="navbar-brand" href=" {% url 'login'  %} ">Login as someone else</a>
-    {% endif %}
-  </nav>
-  
-  <main role="main">
-  
-    <div class="jumbotron" style="background-color: rgb(189, 206, 252);" >
-      <div class="container">
-        <h1 class="display-3">Response Forum</h1>
-        <p>This is an app to share and view interview experiences</p>
-      </div>
-    </div>
-  
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <p>View other people's experiences</p>
-          <p><a class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" href=" {% url 'all_responses' %} " role="button">View &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <p>Add your interview experience</p>
-          <p><a class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" href=" {% url 'new_response' %} " role="button">New &raquo;</a></p>
-        </div>
-      </div>
-  
-      <hr>
-  
-    </div> <!-- /container -->
-  
-  </main>
 
-  
+<body>
+    <div>
+        <div class="header-blue">
+            <nav class="navbar navbar-light navbar-expand-md navigation-clean">
+                <div class="container"><a class="navbar-brand" href="" style="font-family: 'DM Sans', sans-serif;font-weight: 800;font-size: 25px;">Interview Response Forum</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div
+                        class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="nav navbar-nav ml-auto">
+                            {% if not user.is_authenticated %}
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-unlock-alt"></i>&nbsp; &nbsp;LOGIN</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'register' %}"><i class="fa fa-sign-in"></i>&nbsp; SIGNUP</a></li>
+                            {% else %}
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>&nbsp; LOGOUT</a></li>
+                            {% endif %}
+                        </ul>
+                </div>
+        </div>
+        </nav>
+        <div class="container hero">
+            <div class="row" style="height: 284px;">
+                <div class="col-12 col-lg-6 col-xl-5 offset-xl-1" style="height: 339px;margin: 0px 10px 0px;">
+                    <h1 style="margin: 50px 20px 16px;font-family: 'DM Sans', sans-serif;font-weight: 400;">The revolution is here.</h1>
+                    <p style="margin: 0px 40px 16px;font-family: 'Encode Sans', sans-serif;font-weight: 400;">A platform to share and view interview experiences</p>
+                    <button class="btn btn-light btn-lg action-button" type="button" style="margin: 0px 20px 19px;"><a href="{% url 'all_responses' %}" style="color: antiquewhite;">View other's experiences</a></button>
+                    <button class="btn btn-light btn-lg action-button" type="button" style="margin: 0px 20px 19px;" ><a href="{% url 'new_response' %}" style="color: antiquewhite;">Create yours</a></button></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="article-list"></div>
+    <div class="article-list" style="background-color: rgb(34,34,34);">
+        <div class="container" style="background-color: rgb(34,34,34);">
+            <div class="intro">
+                <h2 class="text-center" style="color: rgb(255,255,255);font-family: Actor, sans-serif;">Most Viewed Articles</h2>
+                <p class="text-center" style="color: rgb(195,197,198);margin: 0px 0px 30px;">The most viewed articles on our site</p>
+            </div>
+            <div class="card-group">
+                {% for response in responses %}
+                    <div class="card">
+                        <div class="card-body" style="height:150px">
+                            <a href="{% url 'view_response' response.id %}"><h4 class="card-title" style="color: rgb(255,255,255);">{{response.profile}} at {{response.company}}</h4></a>
+                            <p class="text-right card-text">{{response.hits}} Views</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="card-group">
+              {% for response_1 in responses_1 %}
+                  <div class="card">
+                      <div class="card-body"style="height:150px">
+                          <a href="{% url 'view_response' response_1.id %}"><h4 class="card-title" style="color: rgb(255,255,255);">{{response_1.profile}} at {{response_1.company}}</h4></a>
+                          <p class="text-right card-text">{{response_1.hits}} Views</p>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+        </div>
+    </div>
+    <footer>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 footer-navigation">
+                <h3></h3>
+                <p class="links" style="font-family: Cookie, cursive;font-size: 28px;font-weight: 500;margin: -25px -2px 5px;">InterviewResponseForum</p>
+                <p class="company-name">Interview Response Forum © 2020 </p>
+            </div>
+            <div class="col-sm-6 col-md-4 footer-contacts">
+                <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
+                    <p><span class="new-line-span" style="font-family: Andika, sans-serif;">NIT Durgapur</span> Durgapur, India</p>
+                </div>
+                <div><i class="fa fa-phone footer-contacts-icon"></i>
+                    <p class="footer-center-info email text-left" style="font-size: 16px;width: 145px;">+91 9433828328&nbsp;&nbsp;</p>
+                </div>
+                <div><i class="fa fa-envelope footer-contacts-icon"></i>
+                    <p>nikhilkumar654231@gmail.com</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-4 footer-about">
+                <h4>About the company</h4>
+                <p> Built and designed single-handedly, this is one of my first projects</p>
+                <div class="social-links social-icons"><a href="https://github.com/kumanik5661/InterviewResponseForum"><i class="fa fa-github"></i></a></div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
-{% endblock %}

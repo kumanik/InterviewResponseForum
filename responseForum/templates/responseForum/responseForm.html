@@ -1,58 +1,114 @@
-{% block content%}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+{% load crispy_forms_tags %}
+{% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>Create Response</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Create or Edit Experience  -  Interview Response Forum</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Andika">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Encode+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/Article-List.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Header-Blue.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Navigation-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Pretty-Footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    {% if not user.is_authenticated %}
-    <a class="navbar-brand" href=" {% url 'index'  %} ">Home</a>
-    <a class="navbar-brand" href=" {% url 'login'  %}">Login</a>
-    <a class="navbar-brand" href=" {% url 'register'  %}">Signup</a>
-    {% else %}
-    <a class="navbar-brand" href=" {% url 'index'  %} ">Home</a>
-    <a class="navbar-brand">Logged in as <strong>{{ user.get_username }}</strong> </a> 
-    <a class="navbar-brand" href=" {% url 'logout'  %} ">Logout</a>
-    <a class="navbar-brand" href=" {% url 'login'  %} ">Login as someone else</a>
-    {% endif %}
-  </nav>
 
-  {% load crispy_forms_tags %}
-        <main role="main" class="container">
-          <div class="jumbotron" style="background-color: rgb(189, 206, 252);" >  
-            <form method="post">
-            {% csrf_token %}
-                
-            <div  class="row">
-                <div>
-                  {{ form.company|as_crispy_field }}
-                  <a class="btn btn-secondary" href="{% url 'add_company' %}" role="button" >Add company</a>
-                </div>
-                <br>
-                <div>{{ form.profile|as_crispy_field }}</div>
-                <div>{{ form.rounds|as_crispy_field }}</div>
-                <div>{{ form.questions|as_crispy_field }}</div>
-                <div>{{ form.review|as_crispy_field }}</div>
-                <div>{{ form.offer|as_crispy_field }}</div>
-                <div>{{ form.rating|as_crispy_field }}</div>
+<body>
+    <div class="header-blue" style="height: 350px;">
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean">
+            <div class="container"><a class="navbar-brand" style="font-family: 'DM Sans', sans-serif;font-weight: 800;font-size: 25px;" href="">Interview Response Forum</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div
+                    class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="nav navbar-nav ml-auto">
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'index' %}"><i class="fa fa-unlock-alt"></i>&nbsp; HOME</a></li>
+                      {% if not user.is_authenticated %}
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-unlock-alt"></i>&nbsp; &nbsp;LOGIN</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'register' %}"><i class="fa fa-sign-in"></i>&nbsp; SIGNUP</a></li>
+                      {% else %}
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>&nbsp; LOGOUT</a></li>
+                      {% endif %}
+                    </ul>
             </div>
+    </div>
+    </nav>
+    <div class="container">
+        <div class="row" style="margin: 50px 15px 20px;">
+            <div class="col" style="margin: 60px 40px 16px;">
+                <p style="font-size: 25px;font-family: 'Encode Sans', sans-serif;margin: -21px -18px 10px;">Add your experience</p>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container">
+        <div class="col" style="margin: 30px 10px 16px;">
+            <form method="post">
+                {% csrf_token %}
+                <p class="text-left" style="font-size: 18px;">Company's name</p>
+                {{ form.company|as_crispy_field }}
+                <button href="{% url 'add_company' %}" class="btn btn-light btn-sm action-button rounded-pill" type="button" style="margin: 0px 20px 20px;background-color: rgba(153,153,153,0);">Add Company</button>
+                <p class="text-left" style="font-size: 18px;">Job Profile</p>
+                {{ form.profile|as_crispy_field }}
+                <p class="text-left" style="font-size: 18px;">Rounds in the interview</p>
+                {{ form.rounds|as_crispy_field }}
+                <p class="text-left" style="font-size: 18px;">Questions Asked</p>
+                {{ form.questions|as_crispy_field }}
+                <p class="text-left" style="font-size: 18px;">Your Views on the inteview</p>
+                {{ form.review|as_crispy_field }}
+                <p class="text-left" style="font-size: 18px;">Company's Offer</p>
+                {{ form.offer|as_crispy_field }}
+                <p class="text-left" style="font-size: 18px;">Your rating out of 10</p>
+                {{ form.rating|as_crispy_field }}
                 <center>
                     {% if user.is_authenticated %}
-                        <input class="btn btn-secondary btn-outline-success submitBtn" style="background-color: rgb(223, 240, 255);"type="submit" name="submit" value="Submit" id="submit">
+                    <input class="btn btn-dark btn-lg rounded-pill btn-outline-success submitBtn" type="submit" name="submit" value="Submit" id="submit">
                     {% else %}
                         <a href="{% url 'login' %}">
-                            <button type="button" class="btn btn-outline-danger" href="{% url 'login'  %}">Login to save information</button>
+                            <button href="{% url 'login' %}"  class="btn btn-dark btn-lg btn-outline-info rounded-pill" type="button" style="margin: 0px 0px 16px;background-color: rgba(232,237,96,0);color: #00bce2;">Login or signup to save information</button>
                         </a>
                     {% endif %}
                 </center>
             </form>
-          </div>
-        </main>
-  
+        </div>
+    </div>
+
+    <footer>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 footer-navigation">
+                <h3></h3>
+                <p class="links" style="font-family: Cookie, cursive;font-size: 28px;font-weight: 500;margin: -25px -2px 5px;">InterviewResponseForum</p>
+                <p class="company-name">Interview Response Forum © 2020</p>
+            </div>
+            <div class="col-sm-6 col-md-4 footer-contacts">
+                <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
+                    <p><span class="new-line-span" style="font-family: Andika, sans-serif;">NIT Durgapur</span> Durgapur, India</p>
+                </div>
+                <div><i class="fa fa-phone footer-contacts-icon"></i>
+                    <p class="footer-center-info email text-left" style="font-size: 16px;width: 145px;">+91 9433828328&nbsp;&nbsp;</p>
+                </div>
+                <div><i class="fa fa-envelope footer-contacts-icon"></i>
+                    <p> </p>
+                    <p>nikhilkumar654231@gmail.com</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-4 footer-about">
+                <h4>About the company</h4>
+                <p> Built and designed single-handedly, this is one of my first projects</p>
+                <div class="social-links social-icons"><a href="https://github.com/kumanik5661/InterviewResponseForum"><i class="fa fa-github"></i></a></div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
-{% endblock %}

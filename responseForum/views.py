@@ -11,7 +11,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 def index(request):
-    return render(request, 'responseForum/home.html')
+    responses = InterviewResponse.objects.order_by('-hits')[0:3]
+    responses_1 = InterviewResponse.objects.order_by('-hits')[3:6]
+    return render(request, 'responseForum/home.html', {'responses': responses, 'responses_1': responses_1})
 
 def allResponses(request):
     responses = InterviewResponse.objects.order_by('-timestamp')
