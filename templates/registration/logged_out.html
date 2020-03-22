@@ -1,22 +1,34 @@
-{% block content %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  {% load crispy_forms_tags %}
+  {% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Logged Out  -  Interview Response Forum</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'css/Login-Form-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
+
 <body>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <div align="center">
-    <h3>Logged out!</h3>  
-    <h4>Log in again ??</h4><br><br>
-    <div>
-      <button style="background-color: rgb(223, 240, 255);" class="btn btn-lg btn-outline-secondary" onclick="window.location.href='{% url "login"  %}'">Sign in</button>
-      <button style="background-color: rgb(223, 240, 255);" class="btn btn-lg btn-outline-primary" onclick="window.location.href='{% url "index"  %}'">Home</button>
-     </div>
-  </div>
+    <div class="login-clean" style="color: rgba(255,255,255,0);background-color: rgb(34,34,34);">
+        <form method="post" style="background-color: rgb(47,47,47);">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><i class="icon ion-log-out" style="color: rgb(71,151,244);"></i></div>
+            <p class="text-center" style="color: rgb(111,150,188);font-size: 16px;font-family: Acme, sans-serif;font-weight: 500;">Logged Out !!</p><a class="btn btn-info border rounded-circle border-info shadow rounded-pill" role="button" style="margin: 0px 47px 18px;height: 40px;width: 147px;background-color: rgba(51,109,179,0);" href="{% url 'login' %}">Login Again</a>
+            <p class="text-center"
+                style="color: rgb(111,150,188);font-size: 16px;font-family: Acme, sans-serif;font-weight: 500;margin: 15x 0px 10px ;">----OR----</p><a class="btn btn-warning rounded-pill" role="button" style="margin: 10px 47px 0px;height: 40px;width: 147px;background-color: rgba(255,255,255,0);" href="{% url 'index' %}">Visit Home</a>
+            <header></header>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 </body>
 
-{% endblock %}
+</html>

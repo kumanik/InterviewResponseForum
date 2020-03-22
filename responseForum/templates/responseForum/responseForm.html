@@ -54,7 +54,7 @@
                 {% csrf_token %}
                 <p class="text-left" style="font-size: 18px;">Company's name</p>
                 {{ form.company|as_crispy_field }}
-                <button href="{% url 'add_company' %}" class="btn btn-light btn-sm action-button rounded-pill" type="button" style="margin: 0px 20px 20px;background-color: rgba(153,153,153,0);">Add Company</button>
+                <a href="{% url 'add_company' %}" class="btn btn-light btn-sm action-button rounded-pill" type="button" style="margin: 0px 20px 20px;background-color: rgba(153,153,153,0);">Add Company</a>
                 <p class="text-left" style="font-size: 18px;">Job Profile</p>
                 {{ form.profile|as_crispy_field }}
                 <p class="text-left" style="font-size: 18px;">Rounds in the interview</p>

@@ -1,43 +1,36 @@
-{% block content %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+{% load crispy_forms_tags %}
+{% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>Register</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Register  -  Interview Response Forum</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'css/Login-Form-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body> 
-  {% if form.errors %}
-      <div class="alert alert-danger">You might have used a used username or your passwords didn't match. Please try again.</div>
-  {% endif %}
-  <br><br><br><br><br><br><br><br><br><br><br>
-  <div align="center">
-    <h2>Sign up</h2>
-    <form method="post">
-      {% csrf_token %}
-      <table align="justify">
-        <tr>  
-          <td>{{ form.username.label_tag }}</td>
-          <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-          <td>{{ form.password.label_tag }}</td>
-          <td>{{ form.password }}</td>
-        </tr>
-        <tr>
-          <td>{{ form.password1.label_tag }}</td>&nbsp;
-          <td>{{ form.password1 }}</td>
-        </tr>
-      </table>
-      <br>
-      <button class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" type="submit">Sign up</button>
-    </form>
-    <br>
-    <p>Forgot your way, want to login? </p>
-    <button style="color: rgb(65, 63, 63); background-color: rgb(223, 240, 255);" class="btn btn-outline-primary" href="{% url 'login'  %}">Sign in</button>
-  </div>
-  
+
+<body>
+    <div class="login-clean" style="color: rgba(255,255,255,0);background-color: rgb(34,34,34);">
+        <form method="post" action="" style="background-color: rgb(47,47,47);">
+            <h2 class="sr-only">Login Form</h2>        
+            <div class="illustration"><i class="icon ion-ios-contact-outline" style="color: rgb(71,151,244);"></i></div>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="form-group text-success" style="padding: 0px;">
+              <button class="btn btn-success rounded-pill" type="submit" style="margin: 15px 45px 0px;height: 40px;width: 147px;background-color: rgba(255,255,255,0);">Signup</button></div>
+            <p class="text-center" style="color: rgb(111,150,188);font-size: 16px;font-family: Acme, sans-serif;font-weight: 500;">Forgot yout way, want to login?</p>
+            <a class="btn btn-info border rounded-circle border-info shadow rounded-pill" role="button" style="margin: -2px 45px 0px;height: 40px;width: 147px;background-color: rgba(51,109,179,0);" href="{% url 'login' %}">Login</a>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 </body>
 
-{% endblock %}
+</html>

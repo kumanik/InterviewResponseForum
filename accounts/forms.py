@@ -1,11 +1,24 @@
 from django import forms
 from django.contrib.auth import authenticate, get_user_model
+from django.forms import ModelForm
 
 User = get_user_model()
 
-class UserLoginForm(forms.Form):
-    username = forms.CharField()
-    password =forms.CharField(widget=forms.PasswordInput)
+class UserLoginForm(forms.ModelForm):
+    username = forms.CharField(max_length=20,label='Username', widget=forms.TextInput(attrs={'placeholder':'Username'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
+
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = ''
+        self.fields['password'].label = ''
+
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'password',
+        ]
 
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get('username')
@@ -18,11 +31,16 @@ class UserLoginForm(forms.Form):
             if not user.check_password(password):
                 raise forms.ValidationError("Wrong password")
 
-
 class UserRegisterForm(forms.ModelForm):
-    username = forms.CharField(max_length=20)
-    password = forms.CharField(widget=forms.PasswordInput)
-    password1 = forms.CharField(widget=forms.PasswordInput, label='Verify password')
+    username = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder':'Enter a Username', 'label': ""}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Enter Password', 'label': ""}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Retype password', 'label': ""}))
+
+    def __init__(self, *args, **kwargs):
+        super(UserRegisterForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = ''
+        self.fields['password'].label = ''
+        self.fields['password1'].label = ''
 
     class Meta:
         model = User

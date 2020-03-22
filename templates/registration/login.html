@@ -1,59 +1,44 @@
-{% block content %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+{% load crispy_forms_tags %}
+{% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Login  -  Interview Response Forum</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'css/Login-Form-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
-
-  {% if form.errors %}
-      <div class="alert alert-danger" style="text-align:center;width:100%" >Your username and password didn't match. Please try again.</div>
-  {% endif %}
-    
-  {% if next %}  
-      {% if user.is_authenticated %}
-      <div class="btn btn-danger" style="text-align:center; width:100%" >Your account doesn't have access to this page. To proceed,
-        please login with an account that has access.</div>
-      {% else %}
-      <div class="btn btn-info" style="text-align:center; width:100%" >Please login to see this page.</div>
-  {% endif %}
-
-  {% endif %}
-  <br><br><br><br><br><br><br><br><br><br><br><br>
-  <div align="center">
-    <h2>Login</h2>
-    <br>
-    <form method="post" action="{% url 'login' %}">
-      {% csrf_token %}
-      <table align="center">
-        <tr>
-          <td>{{ form.username.label_tag }}</td>
-          <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-          <td>{{ form.password.label_tag }}</td>
-          <td>{{ form.password }}</td>
-        </tr>
-      </table>
-      <br>
-      <p><strong>-- OR --</strong></p>
-      <a class="btn btn-primary" style="background-color: #24292e;" href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
-      <br>
-      <a class="btn btn-primary" style="background-color: #4267B2;" href="{% url 'social:begin' 'facebook' %}">Login with FaceBook</a><br>
-      <br>
-      <a class="btn btn-primary" style="background-color: #FBBC05;" href="/oauth/login/google-oauth2/">Login with Google</a><br>
-      <br>
-      <button class="btn btn-outline-primary" style="background-color: rgb(223, 240, 255);" type="submit">Sign in</button>
-      <input type="hidden" name="next" value="{{ next }}" />
-      <br>
-      <br>
-      <p>Don't have an account?</p>
-      <a  style="color: rgb(65, 63, 63); background-color: rgb(223, 240, 255);" class="btn btn-outline-primary" href="{% url 'register'  %}">Sign up</a>
-    </form>
-  </div>
+<body>
+    <div class="login-clean" style="color: rgba(255,255,255,0);background-color: rgb(34,34,34);">
+        <form method="post" style="background-color: rgb(47,47,47);">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><i class="icon ion-log-in" style="color: rgb(71,151,244);"></i></div>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="form-group text-success" style="padding: 0px;">
+                <button class="btn btn-info border rounded-circle border-info shadow rounded-pill" type="submit" style="margin: 15px 45px 0px;height: 40px;width: 147px;background-color: rgba(51,109,179,0);">Login</button>
+            </div>
+            <p class="text-center" style="color: rgb(111,150,188);font-size: 16px;font-family: Acme, sans-serif;font-weight: 500;margin: 0px 0px 0px;">----OR----</p>
+            <p class="text-center" style="color: rgb(84,166,127);font-family: Abel, sans-serif;font-size: 18px;font-weight: 600;">Login using</p>
+            <div class="btn-group" role="group" style="margin: 0px 0px 16px;">
+                <a class="btn btn-primary text-center" role="button" style="margin: 0px;width: 64px;height: 66px;background-color: #dd4b39;" href="/oauth/login/google-oauth2/" target="_parent"><i class="fa fa-google border-primary" style="font-size: 48px;"></i></a>
+                <a class="btn btn-primary text-center" role="button" style="margin: 0px 24px 0px;width: 64px;height: 66px;background-color: #211f1f;" href="{% url 'social:begin' 'github' %}" ><i class="fa fa-github-square" style="font-size: 48px;"></i></a>
+                <a class="btn btn-primary text-center" role="button" style="margin: 0px;width: 64px;height: 66px;background-color: #4267B2;"href="{% url 'social:begin' 'facebook' %}" ><i class="fa fa-facebook-square" style="font-size: 48px;color: rgb(34,34,34);"></i></a>
+            </div>
+            <p
+                class="text-center" style="color: rgb(84,166,127);font-family: Abel, sans-serif;font-size: 18px;font-weight: 600;">Don't have an account ?</p><a href="{% url 'register' %}" class="btn btn-success rounded-pill" type="button" style="margin: 10px 45px 0px;height: 40px;width: 147px;background-color: rgb(255,255,255,0);">Signup</a>
+            </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</body>
 
 </html>
-{% endblock %}
