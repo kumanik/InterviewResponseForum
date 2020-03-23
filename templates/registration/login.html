@@ -22,7 +22,8 @@
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><i class="icon ion-log-in" style="color: rgb(71,151,244);"></i></div>
             {% csrf_token %}
-            {{ form|crispy }}
+            {{ form.username|as_crispy_field }}
+            {{ form.password|as_crispy_field }}
             <div class="form-group text-success" style="padding: 0px;">
                 <button class="btn btn-info border rounded-circle border-info shadow rounded-pill" type="submit" style="margin: 15px 45px 0px;height: 40px;width: 147px;background-color: rgba(51,109,179,0);">Login</button>
             </div>

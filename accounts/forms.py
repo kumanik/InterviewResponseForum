@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate, get_user_model
 from django.forms import ModelForm
+from crispy_forms.helper import FormHelper
 
 User = get_user_model()
 
@@ -10,8 +11,8 @@ class UserLoginForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
-        self.fields['username'].label = ''
-        self.fields['password'].label = ''
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
 
     class Meta:
         model = User
