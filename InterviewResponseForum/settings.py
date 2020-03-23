@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'responseForum',
+    'widget_tweaks',
     'crispy_forms',
     'social_django',
 

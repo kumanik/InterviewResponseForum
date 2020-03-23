@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 {% load crispy_forms_tags %}
+{% load widget_tweaks %}
 {% load static %}
 <head>
     <meta charset="utf-8">
@@ -22,7 +23,9 @@
             <h2 class="sr-only">Login Form</h2>        
             <div class="illustration"><i class="icon ion-ios-contact-outline" style="color: rgb(71,151,244);"></i></div>
             {% csrf_token %}
-            {{ form|crispy }}
+            {% render_field form.username class="form-control" type="email" name="username" placeholder="Enter a Username" style="background-color: rgb(255,255,255);" %}<br>
+            {% render_field form.password class="form-control" type="password" name="password" placeholder="Create a Password" style="background-color: rgb(255,255,255);" %}<br>
+            {% render_field form.password1 class="form-control" type="password" name="password" placeholder="Retype Password" style="background-color: rgb(255,255,255);" %}
             <div class="form-group text-success" style="padding: 0px;">
               <button class="btn btn-success rounded-pill" type="submit" style="margin: 15px 45px 0px;height: 40px;width: 147px;background-color: rgba(255,255,255,0);">Signup</button></div>
             <p class="text-center" style="color: rgb(111,150,188);font-size: 16px;font-family: Acme, sans-serif;font-weight: 500;">Forgot yout way, want to login?</p>
