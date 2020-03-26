@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-{% load crispy_forms_tags %}
+{% load widget_tweaks %}
 {% load static %}
 <head>
     <meta charset="utf-8">
@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Encode+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{% static 'css/Article-List.css' %}">
     <link rel="stylesheet" href="{% static 'css/Header-Blue.css' %}">
     <link rel="stylesheet" href="{% static 'css/Navigation-Clean.css' %}">
@@ -50,39 +50,38 @@
         </div>
     </div>
     </div>
+
     <div class="container">
-        <div class="col" style="margin: 30px 10px 16px;">
-            <form method="post">
-                {% csrf_token %}
-                <p class="text-left" style="font-size: 18px;">Company's name</p>
-                {{ form.company|as_crispy_field }}
-                <a href="{% url 'add_company' %}" class="btn btn-light btn-sm action-button rounded-pill" type="button" style="margin: 0px 20px 20px;background-color: rgba(153,153,153,0);">Add Company</a>
-                <p class="text-left" style="font-size: 18px;">Job Profile</p>
-                {{ form.profile|as_crispy_field }}
-                <p class="text-left" style="font-size: 18px;">Rounds in the interview</p>
-                {{ form.rounds|as_crispy_field }}
-                <p class="text-left" style="font-size: 18px;">Questions Asked</p>
-                {{ form.questions|as_crispy_field }}
-                <p class="text-left" style="font-size: 18px;">Your Views on the inteview</p>
-                {{ form.review|as_crispy_field }}
-                <p class="text-left" style="font-size: 18px;">Company's Offer</p>
-                {{ form.offer|as_crispy_field }}
-                <p class="text-left" style="font-size: 18px;">Your rating out of 10</p>
-                {{ form.rating|as_crispy_field }}
-                <center>
-                    {% if user.is_authenticated %}
-                    <input class="btn btn-dark btn-lg rounded-pill btn-outline-success submitBtn" type="submit" name="submit" value="Submit" id="submit">
-                    {% else %}
-                        <a href="{% url 'login' %}">
-                            <button href="{% url 'login' %}"  class="btn btn-dark btn-lg btn-outline-info rounded-pill" type="button" style="margin: 0px 0px 16px;background-color: rgba(232,237,96,0);color: #00bce2;">Login or signup to save information</button>
-                        </a>
-                    {% endif %}
-                </center>
-            </form>
+        <div class="card" style="margin: 35px 0px 0px;">
+            <div class="card-body" style="width:1080px ; height: auto;margin: 0px 0px 0px ;">
+                <form method="post">
+                    {% csrf_token%}
+                    <div class="form-row">
+                        <div class="col" style="width: auto;">
+                            <div class="form-group" style="width: 500px;"><label>Company</label>{% render_field form.company class="border rounded-0 custom-select" style="width: 500px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Job Profile</label>{% render_field form.profile class="border rounded-0 form-control" type="text" style="width: 500px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Offer</label>{% render_field form.offer class="border rounded-0 form-control" type="number" style="width: 500px;" %}</div>
+                        </div>
+                        <div class="col" style="width: auto;">
+                            <div class="form-group text-center" style="height: 66.5px;"><a class="btn btn-outline-info rounded-pill" role="button" style="margin: 30px 0px 0px; width:200px" href="{% url 'add_company' %}">Add Company</a></div>
+                            <div class="form-group" style="width: 500px;"><label>Rounds</label>{% render_field form.rounds class="border rounded-0 form-control" type="number" style="width: 500px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Rating</label>{% render_field form.rating class="border rounded-0 form-control" type="number" style="width: 500px;" %}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group" style="width: 500px;"><label>Questions Asked</label>{% render_field form.questions class="border rounded-0" type="text" style="width: 1070px;height: 100px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Your Review</label>{% render_field form.review class="border rounded-0" type="text" style="width: 1070px;height: 100px;" %}</div>
+                        </div>
+                    </div>
+                    <div class="col text-center"><input class="btn btn-dark btn-lg rounded-pill btn-outline-success submitBtn" type="submit" name="submit" value="Submit" id="submit"></div>
+                </form>
+            </div>
         </div>
     </div>
 
-    <footer>
+
+    <footer style="margin: 60px 0px 0px;">
         <div class="row">
             <div class="col-sm-6 col-md-4 footer-navigation">
                 <h3></h3>

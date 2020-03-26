@@ -23,7 +23,7 @@
             <h2 class="sr-only">Login Form</h2>        
             <div class="illustration"><i class="icon ion-ios-contact-outline" style="color: rgb(71,151,244);"></i></div>
             {% csrf_token %}
-            {% render_field form.username class="form-control" type="email" name="username" placeholder="Enter a Username" style="background-color: rgb(255,255,255);" %}<br>
+            {% render_field form.username class="form-control" type="username" name="username" placeholder="Enter a Username" style="background-color: rgb(255,255,255);" %}<br>
             {% render_field form.password class="form-control" type="password" name="password" placeholder="Create a Password" style="background-color: rgb(255,255,255);" %}<br>
             {% render_field form.password1 class="form-control" type="password" name="password" placeholder="Retype Password" style="background-color: rgb(255,255,255);" %}
             <div class="form-group text-success" style="padding: 0px;">

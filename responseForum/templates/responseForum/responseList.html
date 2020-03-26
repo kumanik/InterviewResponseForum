@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>IRF</title>
+    <title>All Responses  -  Interiew Response Forum</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
@@ -61,7 +61,23 @@
             </div>
         </div>
         {% endfor %}
+        <hr>
+        {% if responses.has_other_pages %}
+            <div class="container-fluid" style="margin-left: 30px;" >
+                <nav aria-label="Page navigation conatiner">
+                        {% if responses.has_previous %}
+                        <a class="btn btn-dark btn-lg btn-outline-info"  type="button" href="?page={{ responses.previous_page_number }}" class="page-link">&laquo; PREV </a>
+                        {% endif %}
+                        {% if responses.has_next %}
+                        <a class="btn btn-dark btn-lg btn-outline-info"  type="button" href="?page={{ responses.next_page_number }}" class="page-link"> NEXT &raquo;</a>
+                        {% endif %}
+                </nav>
+            </div>
+            {% endif %}
     </div>
+        
+    
+    
 
     <footer style="margin: 90px 0px 0px;">
         <div class="row">

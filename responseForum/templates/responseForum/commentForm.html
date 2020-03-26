@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    {% load crispy_forms_tags %}
+    {% load widget_tweaks %}
     {% load static %}
 <head>
     <meta charset="utf-8">
@@ -28,8 +28,7 @@
         <div class="header-blue" style="height: 350px;">
             <nav class="navbar navbar-light navbar-expand-md navigation-clean">
                 <div class="container"><a class="navbar-brand" href="" style="font-family: 'DM Sans', sans-serif;font-weight: 800;font-size: 25px;">Interview Response Forum</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                    <div
-                        class="collapse navbar-collapse" id="navcol-1">
+                    <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'index' %}"><i class="fa fa-unlock-alt"></i>&nbsp; HOME</a></li>
                             {% if not user.is_authenticated %}
@@ -51,16 +50,19 @@
             </div>
         </div>
     </div>
-    <div class="container" style="height: 319px;">
-        <div class="col" style="height: 319px;margin: 30px 10px 16px;">
-            <p class="text-left" style="font-size: 22px;">Body</p>
-            <form method="post">
-                {% csrf_token %}
-                    {% crispy form %}
-                    <center>
-                        <input class="btn btn-dark btn-lg rounded-pill btn-outline-success submitBtn" type="submit" name="submit" value="Submit" id="submit">      
-                    </center>
+    <div class="container">
+        <div class="card" style="margin: 35px 0px 0px;">
+            <div class="card-body" style="height: auto;margin: 0px 0px 0px ;">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group" style="width: 534px;"><label>Comment Body</label>{% render_field form.body class="border rounded-0" type="text" style="width: 01000px;height: 100px;" %}</div>
+                        </div>
+                    </div>
+                    <div class="col text-center"><input class="btn btn-dark btn-lg rounded-pill btn-outline-success submitBtn" type="submit" name="submit" value="Submit" id="submit"></div>
                 </form>
+            </div>
         </div>
     </div>
     </div>

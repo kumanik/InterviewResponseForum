@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-{% load crispy_forms_tags %}
 {% load static %}
+{% load widget_tweaks %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -48,8 +48,8 @@
                 <p style="font-size: 22px;font-family: 'DM Sans', sans-serif;margin: -16px 0px 10px;">{{response.profile}} at {{response.company}}</p>
                 <p style="font-size: 18px;font-family: 'Source Sans Pro', sans-serif;font-weight: 300;">Created by {{response.name}} on {{response.timestamp}}</p>
                 {% if response.name.pk == user.pk %}
-                <button class="btn btn-light btn-lg action-button" type="button" style="margin: 10px 20px 19px;" href="{% url 'edit_response' response.id %}" >Edit response</button>
-                <button class="btn btn-light btn-lg action-button" type="button" style="margin: 10px 20px 19px;" href="{% url 'delete_response' response.id %}">Delete response</button>
+                <a class="btn btn-light btn-lg action-button" type="button" style="margin: 10px 20px 19px;" href="{% url 'update_response' response.id %}" >Edit response</a>
+                <a class="btn btn-light btn-lg action-button" type="button" style="margin: 10px 20px 19px;" href="{% url 'delete_response' response.id %}">Delete response</a>
                 {% endif %}
             </div>
         </div>
@@ -99,9 +99,13 @@
                         <h3>Leave a comment</h3>
                         <form method="post">
                             {% csrf_token %}
-                            {% crispy comment_form %}
-                            <input class="btn btn-dark btn-lg rounded-pill btn-outline-success submitBtn" type="submit" name="submit" value="Submit" id="submit">
-                        </form>  
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group" style="width: 500px;">{% render_field comment_form.body class="border rounded-0" type="text" style="width: 0500px;height: 100px;" %}</div>
+                                </div>
+                            </div>
+                            <div class="col text-center"><input class="btn btn-dark btn-lg rounded-pill btn-outline-success submitBtn" type="submit" name="submit" value="Submit" id="submit"></div>
+                        </form>
                     {% endif %}  
                     <div class="card">
                         {% for comment in comments %}

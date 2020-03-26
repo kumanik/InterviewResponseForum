@@ -56,7 +56,7 @@ def new_response(request):
         form = ResponseForm(request.POST)
         if form.is_valid():
             response = form.save(user_id=request.user.pk)
-            return render(request, 'responseForum/response.html', {'response': response})
+            return redirect('view_response', response.id )
         else:
             form = ResponseForm()
     return render(request, 'responseForum/responseForm.html', {'form': form})
