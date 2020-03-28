@@ -35,4 +35,6 @@ An app to share interview reviews
 
 <h2>Home Page screenshot</h2>
 <img src="static/images/home_page.png"</img>
+<br><br><br>
+<img src="static/images/home_page_narrow.png"</img>
 
