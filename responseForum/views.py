@@ -9,6 +9,7 @@ from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 def index(request):
     responses = InterviewResponse.objects.order_by('-hits')[0:3]
@@ -51,15 +52,18 @@ def viewResponse(request, response_id):
 
 @login_required
 def new_response(request):
-    form=ResponseForm()
+    response_form=ResponseForm()
     if request.method == "POST" :
-        form = ResponseForm(request.POST)
-        if form.is_valid():
-            response = form.save(user_id=request.user.pk)
+        rating = request.POST.get('rating')
+        response_form = ResponseForm(request.POST)
+        if rating > '10' or rating < '1' :
+            messages.error(request, "Enter a rating in the range 1-10")
+        if response_form.is_valid():
+            response = response_form.save(user_id=request.user.pk)
             return redirect('view_response', response.id )
         else:
             form = ResponseForm()
-    return render(request, 'responseForum/responseForm.html', {'form': form})
+    return render(request, 'responseForum/responseForm.html', {'response_form': response_form})
 
 @login_required
 def update_resposne(request, response_id):

@@ -58,7 +58,7 @@
                     {% csrf_token %}
                     <div class="row">
                         <div class="col">
-                            <div class="form-group" style="width: 534px;"><label>Company's Name</label>{% render_field form.name %}</div>
+                            <div class="form-group" style="width: 534px;"><label>Company's Name</label>{% render_field form.name class="border rounded-0" type="text" style="width: 1070px;height: 36.6px;" %}</div>
                         </div>
                     </div>
                     <div class="col text-center"><input class="btn btn-dark btn-lg rounded-pill btn-outline-success submitBtn" type="submit" name="submit" value="Submit" id="submit"></div>

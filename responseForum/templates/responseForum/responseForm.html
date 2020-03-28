@@ -58,20 +58,20 @@
                     {% csrf_token%}
                     <div class="form-row">
                         <div class="col" style="width: auto;">
-                            <div class="form-group" style="width: 500px;"><label>Company</label>{% render_field form.company class="border rounded-0 custom-select" style="width: 500px;" %}</div>
-                            <div class="form-group" style="width: 500px;"><label>Job Profile</label>{% render_field form.profile class="border rounded-0 form-control" type="text" style="width: 500px;" %}</div>
-                            <div class="form-group" style="width: 500px;"><label>Offer</label>{% render_field form.offer class="border rounded-0 form-control" type="number" style="width: 500px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Company</label>{% render_field response_form.company class="border rounded-0 custom-select" style="width: 500px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Job Profile</label>{% render_field response_form.profile class="border rounded-0 form-control" type="text" style="width: 500px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Offer</label>{% render_field response_form.offer class="border rounded-0 form-control" type="number" style="width: 500px;" %}</div>
                         </div>
                         <div class="col" style="width: auto;">
                             <div class="form-group text-center" style="height: 66.5px;"><a class="btn btn-outline-info rounded-pill" role="button" style="margin: 30px 0px 0px; width:200px" href="{% url 'add_company' %}">Add Company</a></div>
-                            <div class="form-group" style="width: 500px;"><label>Rounds</label>{% render_field form.rounds class="border rounded-0 form-control" type="number" style="width: 500px;" %}</div>
-                            <div class="form-group" style="width: 500px;"><label>Rating</label>{% render_field form.rating class="border rounded-0 form-control" type="number" style="width: 500px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Rounds</label>{% render_field response_form.rounds class="border rounded-0 form-control" type="number" style="width: 500px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Rating</label>{% render_field response_form.rating class="border rounded-0 form-control" type="number" style="width: 500px;" %}</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="form-group" style="width: 500px;"><label>Questions Asked</label>{% render_field form.questions class="border rounded-0" type="text" style="width: 1070px;height: 100px;" %}</div>
-                            <div class="form-group" style="width: 500px;"><label>Your Review</label>{% render_field form.review class="border rounded-0" type="text" style="width: 1070px;height: 100px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Questions Asked</label>{% render_field response_form.questions class="border rounded-0" type="text" style="width: 1070px;height: 100px;" %}</div>
+                            <div class="form-group" style="width: 500px;"><label>Your Review</label>{% render_field response_form.review class="border rounded-0" type="text" style="width: 1070px;height: 100px;" %}</div>
                         </div>
                     </div>
                     <div class="col text-center"><input class="btn btn-dark btn-lg rounded-pill btn-outline-success submitBtn" type="submit" name="submit" value="Submit" id="submit"></div>

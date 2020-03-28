@@ -25,6 +25,21 @@
             {% csrf_token %}
             {% render_field form.username class="form-control" type="username" name="username" placeholder="Username" style="background-color: rgb(255,255,255);" %}<br>
             {% render_field form.password class="form-control" type="password" name="password" placeholder="Password" style="background-color: rgb(255,255,255);" %}
+            {% if form.errors %}
+                <br>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
             <div class="form-group text-success" style="padding: 0px;">
                 <button class="btn btn-info border rounded-circle border-info shadow rounded-pill" type="submit" style="margin: 15px 45px 0px;height: 40px;width: 147px;background-color: rgba(51,109,179,0);">Login</button>
             </div>
@@ -35,9 +50,8 @@
                 <a class="btn btn-primary text-center" role="button" style="margin: 0px 24px 0px;width: 64px;height: 66px;background-color: #211f1f;" href="{% url 'social:begin' 'github' %}" ><i class="fa fa-github-square" style="font-size: 48px;"></i></a>
                 <a class="btn btn-primary text-center" role="button" style="margin: 0px;width: 64px;height: 66px;background-color: #4267B2;"href="{% url 'social:begin' 'facebook' %}" ><i class="fa fa-facebook-square" style="font-size: 48px;color: rgb(34,34,34);"></i></a>
             </div>
-            <p
-                class="text-center" style="color: rgb(84,166,127);font-family: Abel, sans-serif;font-size: 18px;font-weight: 600;">Don't have an account ?</p><a href="{% url 'register' %}" class="btn btn-success rounded-pill" type="button" style="margin: 10px 45px 0px;height: 40px;width: 147px;background-color: rgb(255,255,255,0);">Signup</a>
-            </form>
+            <p class="text-center" style="color: rgb(84,166,127);font-family: Abel, sans-serif;font-size: 18px;font-weight: 600;">Don't have an account ?</p><a href="{% url 'register' %}" class="btn btn-success rounded-pill" type="button" style="margin: 10px 45px 0px;height: 40px;width: 147px;background-color: rgb(255,255,255,0);">Signup</a>
+        </form>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
