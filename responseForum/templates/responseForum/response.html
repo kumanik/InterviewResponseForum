@@ -35,7 +35,7 @@
                       <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-unlock-alt"></i>&nbsp; &nbsp;LOGIN</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'register' %}"><i class="fa fa-sign-in"></i>&nbsp; SIGNUP</a></li>
                       {% else %}
-                      <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'logout' %}"><i class="icon ion-ios-contact-outline"></i>&nbsp; Logged in as {{ user.username }}</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'profile' %}"><i class="icon ion-ios-contact-outline"></i>&nbsp; Logged in as {{ user.username }}</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>&nbsp; LOGOUT</a></li>
                       {% endif %}
                     </ul>
@@ -44,13 +44,25 @@
     </nav>
     <div class="container">
         <div class="row" style="margin: 50px 15px 20px;">
-            <div class="col" style="margin: 60px 40px 16px;">
+            <div class="col-" style="margin: 60px 40px 16px;">
                 <p style="font-size: 22px;font-family: 'DM Sans', sans-serif;margin: -16px 0px 10px;">{{response.profile}} at {{response.company}}</p>
                 <p style="font-size: 18px;font-family: 'Source Sans Pro', sans-serif;font-weight: 300;">Posted by {% if user.pk == response.name.pk %}you{%else%}{{response.name}}{% endif %} on {{response.timestamp}}</p>
                 {% if response.name.pk == user.pk %}
                 <a class="btn btn-light btn-lg action-button" type="button" style="margin: 10px 20px 19px;" href="{% url 'update_response' response.id %}" >Edit response</a>
                 <a class="btn btn-light btn-lg action-button" type="button" style="margin: 10px 20px 19px;" href="{% url 'delete_response' response.id %}">Delete response</a>
                 {% endif %}
+            </div>
+            <div class="col-2" style="margin: 60px 40px 16px;">
+                <p style="font-size: 22px;font-family: 'DM Sans', sans-serif;margin: -16px 0px 10px;">Experiences</p>
+                {% for employment in employments %}
+                    <p >{{employment.profile}} at {{employment.company}}<br><span class="text-muted">{{employment.start}} - {{employment.end}}</span></p>
+                {% endfor %}
+            </div>
+            <div class="col-2" style="margin: 60px 40px 16px;">
+                <p style="font-size: 22px;font-family: 'DM Sans', sans-serif;margin: -16px 0px 10px;">Experiences</p>
+                {% for education in educations %}
+                    <p >{{education.degree}} from {{education.institute}}<br><span class="text-muted">{{education.start}} - {{education.end}}</span></p>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -62,15 +74,15 @@
                     <div class="card">
                         <div class="card-body text-left">
                             <h4 class="card-title">Number of rounds</h4>
-                            <p class="card-text">{{response.rounds}}</p><hr>
+                            <p class="card-text">{{response.rounds}}</p><hr style="background-color: rgb(150, 150, 150);" >
                             <h4 class="card-title">Questions asked</h4>
-                            <p class="card-text">{{response.questions|linebreaks}}</p><hr>
+                            <p class="card-text">{{response.questions|linebreaks}}</p><hr style="background-color: rgb(150, 150, 150);" >
                             <h4 class="card-title">Company's offer</h4>
-                            <p class="card-text">{{response.offer}}</p><hr>
+                            <p class="card-text">{{response.offer}}</p><hr style="background-color: rgb(150, 150, 150);" >
                             <h4 class="card-title">Author's review</h4>
-                            <p class="card-text">{{response.review|linebreaks}}</p><hr>
-                          <h4 class="card-title" >Rating</h4>
-                          <p class="card-text" style="color: gold;">{{response.rating}} / 10</p><hr>
+                            <p class="card-text">{{response.review|linebreaks}}</p><hr style="background-color: rgb(150, 150, 150);" >
+                            <h4 class="card-title" >Rating</h4>
+                            <p class="card-text" style="color: gold;">{{response.rating}} / 10</p>
                       </div>
                     </div>
                 </div>
@@ -107,8 +119,8 @@
                                 <h4 class="card-title">{{comment.body}}</h4>
                                 <p class="card-text">Comment by {{comment.username}} on {{comment.created_on}}</p>
                                 {% if user.pk == comment.username.pk %}
-                                    <button href="{% url 'edit_comment' comment.id %}" class="btn btn-light btn-lg action-button rounded-pill" type="button" style="margin: 0px 20px 19px;background-color: rgba(153,153,153,0);">Edit comment</button>
-                                    <button href="{% url 'delete_comment' comment.id %}" class="btn btn-light btn-lg action-button rounded-pill" type="button" style="margin: 0px 20px 19px;background-color: rgba(153,153,153,0);">Delete comment</button>
+                                    <a href="{% url 'update_comment' comment.id %}" class="btn btn-light btn-lg action-button rounded-pill" type="button" style="margin: 0px 20px 19px;background-color: rgba(153,153,153,0);">Edit comment</a>
+                                    <a href="{% url 'delete_comment' comment.id %}" class="btn btn-light btn-lg action-button rounded-pill" type="button" style="margin: 0px 20px 19px;background-color: rgba(153,153,153,0);">Delete comment</a>
                                 {% endif %}
                             </div>
                         {% endfor %}

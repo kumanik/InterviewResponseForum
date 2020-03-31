@@ -31,4 +31,3 @@ class CommentForm(ModelForm):
         widgets = {
             'body': Textarea(attrs={'rows': 3}),
         }
-    

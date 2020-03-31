@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-{% load crispy_forms_tags %}
 {% load widget_tweaks %}
 {% load static %}
 <head>
@@ -24,6 +23,7 @@
             <div class="illustration"><i class="icon ion-ios-contact-outline" style="color: rgb(71,151,244);"></i></div>
             {% csrf_token %}
             {% render_field form.username class="form-control" type="username" name="username" placeholder="Enter a Username" style="background-color: rgb(255,255,255);" %}<br>
+            {% render_field form.email class="form-control" type="email" name="email" placeholder="Enter a Email" style="background-color: rgb(255,255,255);" %}<br>
             {% render_field form.password class="form-control" type="password" name="password" placeholder="Create a Password" style="background-color: rgb(255,255,255);" %}<br>
             {% render_field form.password1 class="form-control" type="password" name="password" placeholder="Retype Password" style="background-color: rgb(255,255,255);" %}
             {% if form.errors %}

@@ -32,18 +32,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap_modal_forms',
+    'responseForum',
+    'widget_tweaks',
     'accounts',
+    'social_django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'responseForum',
-    'widget_tweaks',
-    'crispy_forms',
-    'social_django',
-
 ]
 
 MIDDLEWARE = [
@@ -152,5 +151,3 @@ SOCIAL_AUTH_FACEBOOK_SECRET = config('FACEBOOK_SECRET')
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('GOOGLE_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('GOOGLE_SECRET')
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'

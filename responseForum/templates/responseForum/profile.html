@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+    </div>
+{% load static %}
+{% load widget_tweaks %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profile  -  Interview Response Forum</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Andika">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Encode+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'css/Article-List.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Header-Blue.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Navigation-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Pretty-Footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <div class="text-center header-blue" style="height: 350px;margin-bottom: 30px;">
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean">
+            <div class="container"><a class="navbar-brand" href="#" style="font-family: 'DM Sans', sans-serif;font-weight: 800;font-size: 20px;">Interview Response Forum</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div
+                    class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'index' %}"><i class="fa fa-unlock-alt"></i>&nbsp; HOME</a></li>
+                      {% if not user.is_authenticated %}
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-unlock-alt"></i>&nbsp; &nbsp;LOGIN</a></li>
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'register' %}"><i class="fa fa-sign-in"></i>&nbsp; SIGNUP</a></li>
+                      {% else %}
+                      <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>&nbsp; LOGOUT</a></li>
+                      {% endif %}
+                    </ul>
+            </div>
+    </div>
+    </nav>
+    <div class="container hero">
+        <div class="row" style="height: auto;">
+            <div class="col-8" style="height: auto;">
+                <p style="font-size: 25px;font-family: 'Encode Sans', sans-serif;margin: 0px 0px 10px;">Welcome {{user.username}}, Here is your Profile</p>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+    </div>
+
+    <div class="container" style="background-color: rgb(34,34,34);height: auto;">
+        <div class="card">
+            <div class="card-body">
+                <div class="row" style="height: auto;width: auto;">
+                    <div class="col-6">
+                        <p style="font-size: 24px;font-family: 'DM Sans', sans-serif;">Employment<button class="create-employment btn" type="button" name="button" style="background-color: rgba(55,90,127,0);margin: 0px 40px 0px;font-size: 20px;" ><i class="icon ion-plus"></i></button></p>
+                        {% for employment in employments %}
+                        <div class="card">
+                                <div class="card-body" style="background-color: #1e1c1c;">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p style="margin: 0px 0px 0px ;">{{employment.profile}} at&nbsp;{{employment.company}}</p>
+                                            <p class="post-meta" style="font-family: Actor, sans-serif;font-size: 16px;color: #cae5f9;margin: 0px 0px 0px;">{{employment.start}} -&nbsp; {{employment.end}}</p>
+                                        </div>
+                                        <div class="col-auto"><button type="button" class="delete-employment btn btn-danger text-danger" style="background-color: rgba(55,90,127,0);margin: 0px 0px 0px;font-size: 20px;" data-id="{% url 'delete_employment' employment.pk %}"><i class="icon ion-android-delete"></i></button></div>
+                                    </div>
+                                </div> 
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-6">
+                        <p style="font-size: 24px;font-family: 'DM Sans', sans-serif;">Education<button class="create-education btn" type="button" style="background-color: rgba(55,90,127,0);margin: 0px 40px 0px;font-size: 20px;" name="button"><i class="icon ion-plus"></i></button></p>
+                        {% for education in educations %}
+                        <div class="card">
+                            <div class="card-body" style="background-color: #1e1c1c;">
+                                <div class="row">
+                                    <div class="col">
+                                        <p style="margin: 0px 0px 0px;">{{education.degree}} from&nbsp;{{education.institute}}</p>
+                                        <p class="post-meta" style="font-family: Actor, sans-serif;font-size: 16px;color: #cae5f9;margin: 0px 0px 0px;">{{education.start}} - {{education.end}}</p>
+                                    </div>
+                                    <div class="col-auto"><button class="delete-education btn btn-danger text-right text-danger" style="background-color: rgba(55,90,127,0);margin: 0px 0px 0px;font-size: 20px;" data-id="{% url 'delete_education' education.pk %}"><i class="icon ion-android-delete"></i></button></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="text-left" style="color: rgb(255,255,255);font-family: Actor, sans-serif;margin: 40px 30px 0px;">Your Articles</h2>
+        <p class="text-left" style="color: rgb(195,197,198);margin: 0px 50px 30px;">Experiences you added are listed here</p>
+        {% for response in responses %}
+            <div class="col-md-10 col-lg-8 rounded-lg" style="margin: 20px 40px 16px;background-color: #363939;height: auto;"><a href="{% url 'view_response' response.id %}" style="color: rgb(248,251,250);font-size: 25px;margin: 10px 0px 0px;">{{response.profile}} at {{response.company}}</a>
+                <div class="post-preview">
+                    <p class="post-meta" style="font-family: Actor, sans-serif;font-size: 16px;color: #cae5f9;margin: 12px 0px 0px;">Posted on {{response.timestamp}}</p>
+                    <p class="post-meta" style="font-family: Actor, sans-serif;font-size: 16px;color: #cae5f9;margin: 05px 0px 0px;">{{response.hits}} Views</p>
+                </div>
+                <div class="btn-group" role="group"></div>
+            </div>
+        {% endfor %}
+    </div>
+    <footer>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 footer-navigation">
+                <h3></h3>
+                <p class="links" style="font-family: Cookie, cursive;font-size: 28px;font-weight: 500;margin: -25px -2px 5px;">InterviewResponseForum</p>
+                <p class="company-name">Interview Response Forum © 2020 </p>
+            </div>
+            <div class="col-sm-6 col-md-4 footer-contacts">
+                <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
+                    <p><span class="new-line-span" style="font-family: Andika, sans-serif;">NIT Durgapur</span> Durgapur, India</p>
+                </div>
+                <div><i class="fa fa-phone footer-contacts-icon"></i>
+                    <p class="footer-center-info email text-left" style="font-size: 16px;width: 181px;">+91 9433828328&nbsp;&nbsp;</p>
+                </div>
+                <div><i class="fa fa-envelope footer-contacts-icon"></i>
+                    <p>nikhilkumar654231@gmail.com</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-4 footer-about">
+                <h4>About the company</h4>
+                <p> Built and designed single-handedly, this is one of my first projects</p>
+                <div class="social-links social-icons"><a href="github.com/kumanik5661/InterviewResponseForum"><i class="fa fa-github"></i></a></div>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+          $(".create-employment").modalForm({formURL: "{% url 'add_employment' %}"});
+      
+          $(".delete-employment").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
+          });
+          
+          $(".create-education").modalForm({formURL: "{% url 'add_education' %}"});
+      
+          $(".delete-education").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
+          });
+        });
+      </script>
+</body>
+
+</html>

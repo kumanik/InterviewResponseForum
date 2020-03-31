@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib import messages
+from accounts.models import Employment, Education
 
 def index(request):
     responses = InterviewResponse.objects.order_by('-hits')[0:3]
@@ -30,6 +31,8 @@ def allResponses(request):
 
 def viewResponse(request, response_id):
     response = get_object_or_404(InterviewResponse, id=response_id)
+    employments = Employment.objects.filter(user=response.name)
+    educations = Education.objects.filter(user=response.name)
     if not responseView.objects.filter(response=response, session=request.session.session_key) :
         view = responseView(response=response,ip=request.META['REMOTE_ADDR'], created=timezone.now(), session=request.session.session_key)
         view.save()
@@ -48,7 +51,7 @@ def viewResponse(request, response_id):
            new_comment.created_on = timezone.now()
            new_comment.active = True
            new_comment = comment_form.save()
-    return render(request, 'responseForum/response.html', {'response': response, 'comments': comments,'new_comment':new_comment, 'comment_form':comment_form})
+    return render(request, 'responseForum/response.html', {'response': response,'employments':employments, 'educations':educations, 'comments': comments,'new_comment':new_comment, 'comment_form':comment_form})
 
 @login_required
 def new_response(request):
