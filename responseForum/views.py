@@ -31,8 +31,8 @@ def allResponses(request):
 
 def viewResponse(request, response_id):
     response = get_object_or_404(InterviewResponse, id=response_id)
-    employments = Employment.objects.filter(user=response.name)
-    educations = Education.objects.filter(user=response.name)
+    employments = Employment.objects.filter(user=response.name).order_by('-start')[:4]
+    educations = Education.objects.filter(user=response.name).order_by('-start')[:4]
     if not responseView.objects.filter(response=response, session=request.session.session_key) :
         view = responseView(response=response,ip=request.META['REMOTE_ADDR'], created=timezone.now(), session=request.session.session_key)
         view.save()

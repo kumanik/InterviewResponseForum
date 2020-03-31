@@ -43,27 +43,29 @@
     </div>
     </nav>
     <div class="container">
-        <div class="row" style="margin: 50px 15px 20px;">
-            <div class="col-" style="margin: 60px 40px 16px;">
+        <div class="row" style="margin: 20px 15px 20px;">
+            <div class="col-5" style="margin: 60px 40px 16px;">
                 <p style="font-size: 22px;font-family: 'DM Sans', sans-serif;margin: -16px 0px 10px;">{{response.profile}} at {{response.company}}</p>
                 <p style="font-size: 18px;font-family: 'Source Sans Pro', sans-serif;font-weight: 300;">Posted by {% if user.pk == response.name.pk %}you{%else%}{{response.name}}{% endif %} on {{response.timestamp}}</p>
                 {% if response.name.pk == user.pk %}
                 <a class="btn btn-light btn-lg action-button" type="button" style="margin: 10px 20px 19px;" href="{% url 'update_response' response.id %}" >Edit response</a>
                 <a class="btn btn-light btn-lg action-button" type="button" style="margin: 10px 20px 19px;" href="{% url 'delete_response' response.id %}">Delete response</a>
                 {% endif %}
-            </div>
-            <div class="col-2" style="margin: 60px 40px 16px;">
-                <p style="font-size: 22px;font-family: 'DM Sans', sans-serif;margin: -16px 0px 10px;">Experiences</p>
+            </div>  
+            {% if response.name.pk is not user.pk %}
+            <div class="col" style="margin: 60px 40px 16px;">
+                <p style="font-size: 18px;font-family: 'DM Sans', sans-serif;margin: -16px 0px 10px;">My Work Experience</p>
                 {% for employment in employments %}
                     <p >{{employment.profile}} at {{employment.company}}<br><span class="text-muted">{{employment.start}} - {{employment.end}}</span></p>
                 {% endfor %}
             </div>
-            <div class="col-2" style="margin: 60px 40px 16px;">
-                <p style="font-size: 22px;font-family: 'DM Sans', sans-serif;margin: -16px 0px 10px;">Experiences</p>
+            <div class="col" style="margin: 60px 40px 16px;">
+                <p style="font-size: 18px;font-family: 'DM Sans', sans-serif;margin: -16px 0px 10px;">My Education Details</p>
                 {% for education in educations %}
                     <p >{{education.degree}} from {{education.institute}}<br><span class="text-muted">{{education.start}} - {{education.end}}</span></p>
                 {% endfor %}
             </div>
+            {% endif %}
         </div>
     </div>
     </div>
